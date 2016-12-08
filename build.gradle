@@ -1,20 +1,25 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+//dependencies {
+//    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+//    testCompile group: 'junit', name: 'junit', version: '4.+'
+//}
+
+def robotManifest = {
+  attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+  attributes 'Implementation-Title': 'Crate Robot'
 }
 
-task robot(type: Jar)
-
-artifacts {
-    archives robot
-}
-
-uploadArchives {
-	
+jar {
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  manifest robotManifest
 }
