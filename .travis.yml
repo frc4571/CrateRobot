@@ -45,7 +45,3 @@ deploy:
   file: "$TRAVIS_BUILD_DIR/$RELEASE_PKG_FILE"
   on:
     tags: true
-
-after_deploy:
-
-
