@@ -36,7 +36,6 @@ Thumbs.db
 hs_err_pid*
 
 # Package Files
-*.jar
 !gradle/*/*.jar
 *.war
 *.ear
