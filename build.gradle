@@ -26,6 +26,8 @@ task fatjar( type: Jar ) {
 	with jar
 }
 
+jar.finalizedBy(fatjar) 
+
 dependencies {
 	compile files('libs/WPILib.jar', 'libs/NetworkTables.jar')
 	compile 'org.apache.commons:commons-collections4:4.1'
