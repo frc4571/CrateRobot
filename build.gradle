@@ -11,7 +11,7 @@ repositories {
     mavenLocal()
     
     // If you aren't behind a firewall, then use
-    // mavenCentral(); 
+    mavenCentral(); 
 }
 
 def robotManifest = {
