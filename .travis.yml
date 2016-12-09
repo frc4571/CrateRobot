@@ -1,9 +1,13 @@
-language: java
+################################### JAVA SETUP ######################################
 
-sudo: false # faster builds
+language: java
 
 jdk:
 - oraclejdk8
+
+sudo: false # faster builds
+
+################################### GRADLE SETUP ######################################
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -17,10 +21,17 @@ cache:
 before_install:
  - chmod +x gradlew
 
+################################ POST SUCCESSFUL BUILD ################################
+
+######## RUN CODE COVERAGE ########
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  
+
+################################## DEPLOYMENT STEPS ###################################
+
 before_deploy:
+  - test $TRAVIS_TEST_RESULT = 0
   - echo "tag detected as $TRAVIS_TAG"
   - ./gradlew assemble -PprodVersion=$TRAVIS_TAG
   - export RELEASE_DIR="build/libs"
@@ -34,3 +45,5 @@ deploy:
   file: "$TRAVIS_BUILD_DIR/$RELEASE_PKG_FILE"
   on:
     tags: true
+
+after_deploy:
