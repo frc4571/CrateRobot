@@ -8,14 +8,29 @@ jdk:
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-  
-before_install:
- - chmod +x gradlew
 
 cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    
+      
+before_install:
+ - chmod +x gradlew
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  
+before_deploy:
+  - echo "tag detected as $TRAVIS_TAG"
+  - ./gradlew assemble -PprodVersion=$TRAVIS_TAG
+  - export RELEASE_DIR="build/libs"
+  - export RELEASE_PKG_FILE=$RELEASE_DIR/CrateRobot-$TRAVIS_TAG.jar
+  - echo "deploying $RELEASE_PKG_FILE to GitHub releases"
+  
+deploy:
+  provider: releases
+  api_key: "$GH_TOKEN"
+  skip_cleanup: true
+  file: "$TRAVIS_BUILD_DIR/$RELEASE_PKG_FILE"
+  on:
+    tags: true
