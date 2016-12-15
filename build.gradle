@@ -1,10 +1,33 @@
-//------------------------------------------- PLUGIN DEFINITION -----------------------------------------------//
+//------------------------------------------- DEPENDENCY MANAGEMENT -----------------------------------------------//
+buildscript {
+    // Defining the dependency repository locations
+    repositories {
+        // If you are behind a firewall and have a local maven repo set up, then use
+        mavenLocal()
 
-plugins {
-    id "java-gradle-plugin"
-    id "eclipse"
-    id "jacoco"
+        // If you aren't behind a firewall, then use
+        mavenCentral()
+
+        maven {
+            name = "GradleRIO"
+            url = "http://dev.imjac.in/maven"
+        }
+    }
+    dependencies {
+        classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+'
+        //Change this line if you wish to Update GradleRIO
+        compile 'org.apache.commons:commons-collections4:4.1'
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+    }
 }
+
+//------------------------------------------- PLUGIN DEFINITION -----------------------------------------------//
+apply plugin: 'java'
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+apply plugin: 'GradleRIO'                                 //Apply the GradleRIO plugin
 
 //------------------------------------------- VERSION MANAGEMENT -----------------------------------------------//
 
@@ -12,22 +35,11 @@ version = '1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-//------------------------------------------- DEPENDENCY MANAGEMENT -----------------------------------------------//
+//------------------------------------------- CONFIGURATION -----------------------------------------------//
 
-// Defining the dependency repository locations
-repositories {
-	// If you are behind a firewall and have a local maven repo set up, then use
-    mavenLocal()
-    
-    // If you aren't behind a firewall, then use
-    mavenCentral(); 
-}
-
-dependencies {
-	compile files('libs/WPILib.jar', 'libs/NetworkTables.jar')
-	compile 'org.apache.commons:commons-collections4:4.1'
-    testCompile group: 'junit', name: 'junit', version: '4.+'
-}
+gradlerio.robotClass = "org.usfirst.frc.team4571.Robot"   //The class for the main Robot Class. Used in manifest
+gradlerio.team = "4571"                                   //Your FRC team number (e.g. 5333 for team 'Can't C#', or 47 for Chief Delphi)
+gradlerio.rioIP = "10.45.71.20"                         //Uncomment to specify the IP address of the RIO
 
 //------------------------------------------- BUILDING THE JAR -----------------------------------------------//
 
@@ -55,7 +67,22 @@ allprojects {
 // Defining the jar manifest
 def robotManifest = {
   attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+  attributes 'Robot-Class': gradlerio.robotClass
   attributes 'Implementation-Title': 'Crate Robot'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest robotManifest
+}
+
+task genJavadoc(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives genJavadoc
 }
 
 task fatjar( type: Jar ) {
