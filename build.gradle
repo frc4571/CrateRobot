@@ -7,7 +7,7 @@ Template file for classes using GradleRIO
 
 buildscript {
   repositories {
-    //mavenLocal()
+    mavenLocal()
 	mavenCentral()
 	maven {
 		name = "GradleRIO"
@@ -21,7 +21,7 @@ buildscript {
   }
 }
 
-//----------------------------------------- PLUGINS SETUP ------------------------------------------------//
+//----------------------------------------- PLUGINS DEFINITION ------------------------------------------------//
 
 apply plugin: 'java'
 apply plugin: 'java-gradle-plugin'
@@ -30,13 +30,13 @@ apply plugin: 'eclipse'
 apply plugin: 'GradleRIO'                                 //Apply the GradleRIO plugin
 apply plugin: 'jacoco'
 
-//----------------------------------------- TEAM INFORMATION ------------------------------------------------//
+//----------------------------------------- TEAM INFO MANAGEMENT ------------------------------------------------//
 
 gradlerio.robotClass = "org.usfirst.frc.team4571.Robot"   //The class for the main Robot Class. Used in manifest
 gradlerio.team = "4571"                                   //Your FRC team number (e.g. 5333 for team 'Can't C#', or 47 for Chief Delphi)
 gradlerio.rioIP = "10.45.71.20"                         //Uncomment to specify the IP address of the RIO
 
-//----------------------------------------- JAR BUILDING ------------------------------------------------//
+//----------------------------------------- BUILDING THE JAR ------------------------------------------------//
 
 def robotManifest = {
   attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
