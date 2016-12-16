@@ -16,8 +16,8 @@ buildscript {
     dependencies {
         classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+'
         //Change this line if you wish to Update GradleRIO
-        compile 'org.apache.commons:commons-collections4:4.1'
-        testCompile group: 'junit', name: 'junit', version: '4.+'
+//        compile 'org.apache.commons:commons-collections4:4.1'
+//        testCompile group: 'junit', name: 'junit', version: '4.+'
     }
 }
 
@@ -43,6 +43,27 @@ gradlerio.rioIP = "10.45.71.20"                         //Uncomment to specify t
 
 //------------------------------------------- BUILDING THE JAR -----------------------------------------------//
 
+// Defining the jar manifest
+def robotManifest = {
+    attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+    attributes 'Robot-Class': gradlerio.robotClass
+    attributes 'Implementation-Title': 'Crate Robot'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest robotManifest
+}
+
+task genJavadoc(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives genJavadoc
+}
+
 // Where should the build get the source files from?
 sourceSets {
     main {
@@ -62,27 +83,6 @@ allprojects {
    } else {
      project.version = 'developer-build'
    }
-}
-
-// Defining the jar manifest
-def robotManifest = {
-  attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
-  attributes 'Robot-Class': gradlerio.robotClass
-  attributes 'Implementation-Title': 'Crate Robot'
-}
-
-jar {
-    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest robotManifest
-}
-
-task genJavadoc(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives genJavadoc
 }
 
 task fatjar( type: Jar ) {
