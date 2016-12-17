@@ -1,5 +1,5 @@
 /**
-Template file for classes using GradleRIO
+Template file for classes using GradleRIO (Toast)
 @author Jaci
 */
 
@@ -7,7 +7,6 @@ Template file for classes using GradleRIO
 
 buildscript {
   repositories {
-    mavenLocal()
 	mavenCentral()
 	maven {
 		name = "GradleRIO"
@@ -15,9 +14,7 @@ buildscript {
 	}
   }
   dependencies {
-    classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+'			//Change this line if you wish to Update GradleRIO
-    classpath group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
-    classpath group: 'junit', name: 'junit', version: '4.+'
+    classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+', classifier: 'Toast'			//Change this line if you wish to Update GradleRIO
   }
 }
 
@@ -27,8 +24,25 @@ apply plugin: 'java'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 apply plugin: 'GradleRIO'                                 //Apply the GradleRIO plugin
 apply plugin: 'jacoco'
+
+//----------------------------------------- TOAST CONFIGURATION ------------------------------------------------//
+// This is a copy from the Toast Setup. Is is defined even with the repository definition above in the buildscript
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = "Toast"
+        url = "http://dev.imjac.in/maven"
+    }
+}
+dependencies {
+    compile group: 'jaci.openrio.toast', name: 'Toast', version: '+'    //Change this line to update Toast
+    compile 'org.apache.commons:commons-collections4:4.1'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
 
 //----------------------------------------- TEAM INFO MANAGEMENT ------------------------------------------------//
 
