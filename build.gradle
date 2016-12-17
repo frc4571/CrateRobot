@@ -16,8 +16,8 @@ buildscript {
   }
   dependencies {
     classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+'			//Change this line if you wish to Update GradleRIO
-//    compile 'org.apache.commons:commons-collections4:4.1'
-//    testCompile group: 'junit', name: 'junit', version: '4.+'
+    classpath group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+    classpath group: 'junit', name: 'junit', version: '4.+'
   }
 }
 
@@ -45,6 +45,7 @@ def robotManifest = {
 }
 
 jar {
+  baseName = project.name
   from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
   manifest robotManifest
 }
