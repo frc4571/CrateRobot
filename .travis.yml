@@ -9,6 +9,10 @@ sudo: false # faster builds
 
 ################################### GRADLE SETUP ######################################
 
+env:
+  global:
+    - COVERALLS_REPO_TOKEN=$COVERALLS_TOKEN
+    
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -30,6 +34,7 @@ before_script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+  - ./gradlew jacocoTestReport coveralls
 
 ################################## DEPLOYMENT STEPS ###################################
 

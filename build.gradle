@@ -27,6 +27,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'GradleRIO'                                 //Apply the GradleRIO plugin
 apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 //----------------------------------------- TOAST CONFIGURATION ------------------------------------------------//
 // This is a copy from the Toast Setup. Is is defined even with the repository definition above in the buildscript
