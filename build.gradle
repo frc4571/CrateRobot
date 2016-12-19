@@ -20,15 +20,14 @@ buildscript {
 
 //----------------------------------------- PLUGINS DEFINITION ------------------------------------------------//
 
-apply plugin: 'java'
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'maven'
-apply plugin: 'GradleRIO'                                 //Apply the GradleRIO plugin
-apply plugin: 'jacoco'
-
 plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'idea'
+    id 'eclipse'
+    id 'maven'
+    id 'GradleRIO'  
+    id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
