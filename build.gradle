@@ -2,6 +2,7 @@
 
 buildscript {
   repositories {
+  	mavenLocal()
 	mavenCentral()
 	maven {
 		name = "GradleRIO"
@@ -17,19 +18,18 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'java-gradle-plugin'
+    id 'java-gradle-plugin'    
     id 'idea'
     id 'eclipse'
     id 'maven'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
-
 apply plugin:'GradleRIO'  
+
 //----------------------------------------- TOAST CONFIGURATION ------------------------------------------------//
 // This is a copy from the Toast Setup. Is is defined even with the repository definition above in the buildscript
 repositories {
-    mavenLocal()
     mavenCentral()
     maven {
         name = "Toast"

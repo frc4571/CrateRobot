@@ -4,6 +4,7 @@ build/
 dist/
 sysProps.xml
 workbench.xmi
+run/
 
 # IDE ( Intellij)
 *.iml
@@ -39,6 +40,7 @@ hs_err_pid*
 !gradle/*/*.jar
 *.war
 *.ear
+gradle.properties
 
 # Toast/GradleRIO
 run/
