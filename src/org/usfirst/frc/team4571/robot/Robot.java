@@ -1,10 +1,9 @@
-
 package org.usfirst.frc.team4571.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import jaci.openrio.toast.lib.module.IterativeModule;
 import org.usfirst.frc.team4571.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4571.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,8 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
+ *
+ * The class has been modified to extend the IterativeModule, which is
+ * Toast's equivalent of IterativeRobot
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeModule {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OperatorInterface oi;
@@ -57,11 +59,11 @@ public class Robot extends IterativeRobot {
 	 * below the Gyro
 	 *
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings & commands.
+	 * or additional comparisons to the switch structure below with additional strings and commands.
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
-        
+
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
 		case "My Auto":
@@ -104,5 +106,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    // IterativeModule's methods to implement
+
+    @Override
+    public String getModuleName() {
+        return "CrateRobot";
+    }
+
+    @Override
+    public String getModuleVersion() {
+        return "1.0.0";
     }
 }
