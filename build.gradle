@@ -3,6 +3,20 @@ Template file for classes using GradleRIO (Toast)
 @author Jaci
 */
 
+
+//----------------------------------------- PLUGINS DEFINITION ------------------------------------------------//
+
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'idea'
+    id 'eclipse'
+    id 'maven'
+    id 'GradleRIO'  
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
 //----------------------------------------- BUILD SCRIPT ------------------------------------------------//
 
 buildscript {
@@ -16,19 +30,6 @@ buildscript {
   dependencies {
     classpath group: 'jaci.openrio.gradle', name: 'GradleRIO', version: '+', classifier: 'Toast'			//Change this line if you wish to Update GradleRIO
   }
-}
-
-//----------------------------------------- PLUGINS DEFINITION ------------------------------------------------//
-
-plugins {
-    id 'java'
-    id 'java-gradle-plugin'
-    id 'idea'
-    id 'eclipse'
-    id 'maven'
-    id 'GradleRIO'  
-    id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
 //----------------------------------------- TOAST CONFIGURATION ------------------------------------------------//
