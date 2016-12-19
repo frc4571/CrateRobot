@@ -7,6 +7,6 @@ public class TestClass {
 	
 	@Test
 	public void testIfTrue(){
-		Assert.assertTrue(5<4);
+		Assert.assertTrue(4<5);
 	}
 }
