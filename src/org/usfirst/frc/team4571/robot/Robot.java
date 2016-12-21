@@ -1,42 +1,27 @@
 package org.usfirst.frc.team4571.robot;
 
+import jaci.openrio.toast.lib.module.IterativeModule;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import jaci.openrio.toast.lib.module.IterativeModule;
-import org.usfirst.frc.team4571.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4571.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * 
+ * @author arjrao
  *
- * The class has been modified to extend the IterativeModule, which is
- * Toast's equivalent of IterativeRobot
  */
 public class Robot extends IterativeModule {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OperatorInterface oi;
-
-    Command autonomousCommand;
-    SendableChooser chooser;
+	@SuppressWarnings("unused")
+	private OperatorInterface operatorInterface;
+    private Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OperatorInterface();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+		operatorInterface = new OperatorInterface();
     }
 	
 	/**
@@ -57,26 +42,11 @@ public class Robot extends IterativeModule {
 	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
 	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
 	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings and commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
-    	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        if (autonomousCommand != null) {
+        	autonomousCommand.start();
+        }
     }
 
     /**
@@ -86,12 +56,13 @@ public class Robot extends IterativeModule {
         Scheduler.getInstance().run();
     }
 
+    /**
+     * TeleOp initialization
+     */
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) {
+        	autonomousCommand.cancel();
+        }
     }
 
     /**
@@ -107,8 +78,6 @@ public class Robot extends IterativeModule {
     public void testPeriodic() {
         LiveWindow.run();
     }
-
-    // IterativeModule's methods to implement
 
     @Override
     public String getModuleName() {
