@@ -3,7 +3,6 @@ package org.usfirst.frc.team4571.robot.subsystems;
 import org.usfirst.frc.team4571.robot.NetworkMapping;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.SolenoidBase;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -36,18 +35,18 @@ public class ArmSubsystem extends Subsystem implements IRambotsSubsystem {
 	//-------------------------------------- Arm Subsystem specific methods ---------------------------------//
 
 	public void pushOut(){
-		
+		GRABBER_SOLENOID.set( DoubleSolenoid.Value.kReverse );
 	}
 	
 	public void pushIn(){
-		
-	}
-	
-	public void sweepDown(){
-		
+		GRABBER_SOLENOID.set( DoubleSolenoid.Value.kForward );
 	}
 	
 	public void sweepUp(){
-		
+		SWEEPER_SOLENOID.set( DoubleSolenoid.Value.kReverse );
+	}
+	
+	public void sweepDown(){
+		SWEEPER_SOLENOID.set( DoubleSolenoid.Value.kForward );
 	}
 }

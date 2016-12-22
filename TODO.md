@@ -15,16 +15,22 @@
 3. how do we set field oriented view v/s robot oriented view?
 
 
-# Questions for Arjun/Inyong
+# TODO
+
+## Overall
+
+1. Do you really need RambotsSubsystem ?
+2. Do you really need a static instance of the Drive subsystem? Who is going to call it?
+3. Adding metrics and robot/subsystem health/state information
+4. Connecting to SmartDashboard
+5. Adding test cases to the robot 
+6. What other methods can you have in the specific subsystem? ( either for more functionality, or for autonomous mode, or for metrics/health )
 
 ## A. Drive subsystem
 
 1. How do you make the mecanum drive more sophisticated?
-2. What other methods can you have in the drive system?
-3. Do you really need RambotsSubsystem ?
-4. Do you really need a static instance of the Drive subsystem? Who is going to call it?
-
 
 ## B. Elevator subsystem
 
 1. What other methods can you have in the Elevator speed controller that you can expose through the subsystem?
+
