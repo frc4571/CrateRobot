@@ -18,6 +18,7 @@
 2. Why do we "invert" the motors?
 3. how do we set field oriented view v/s robot oriented view?
 4. How do we use Motion profiling with the CANTalon?
+5. How many joysticks/what kind of controllers are we using for the robot?
 
 # Subsystem design
 
