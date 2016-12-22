@@ -20,8 +20,8 @@ public final class NetworkMapping {
 	
 	// Solenoid Channel Mapping
 	
-	public static final int GRABBER_SOLENOID_FORWARD_CHANNEL = 0;
-	public static final int GRABBER_SOLENOID_REVERSE_CHANNEL = 1;
+	public static final int ARM_SOLENOID_FORWARD_CHANNEL = 0;
+	public static final int ARM_SOLENOID_REVERSE_CHANNEL = 1;
 	public static final int SWEEPER_SOLENOID_FORWARD_CHANNEL = 2;
 	public static final int SWEEPER_SOLENOID_REVERSE_CHANNEL = 3;
 	

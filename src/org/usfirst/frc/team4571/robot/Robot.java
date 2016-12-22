@@ -4,10 +4,10 @@ import jaci.openrio.toast.lib.module.IterativeModule;
 
 import org.usfirst.frc.team4571.robot.components.LimitSwitch;
 import org.usfirst.frc.team4571.robot.components.RambotsJoystick;
-import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.OverallArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team4571.robot.subsystems.GrabSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,10 +24,10 @@ public class Robot extends IterativeModule {
 	//======================= RESOURCE MANAGEMENT ===================//
 
 	// Subsystems
-	public static final ArmSubsystem ARM_SUBSYSTEM           = new ArmSubsystem();
+	public static final OverallArmSubsystem OVERALL_ARM_SUBSYSTEM = new OverallArmSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
 	public static final DriveSubsystem DRIVE_SUBSYSTEM       = new DriveSubsystem();
-	public static final GrabSubsystem GRAB_SUBSYSTEM         = new GrabSubsystem();
+	public static final ArmSubsystem ARM_SUBSYSTEM         = new ArmSubsystem();
 	public static final SweepSubsystem SWEEP_SUBSYSTEM       = new SweepSubsystem();
 	
 	// Joystick

@@ -13,7 +13,6 @@ import org.usfirst.frc.team4571.robot.Robot;
 public class TeleopDriveCommand extends AbstractTeleopCommand{
 
 	public TeleopDriveCommand(){
-		super( "TeleOpDriveCommand" );
 		requires( Robot.DRIVE_SUBSYSTEM );
 	}
 	

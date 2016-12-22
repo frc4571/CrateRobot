@@ -3,6 +3,7 @@ package org.usfirst.frc.team4571.robot.components;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
+import org.usfirst.frc.team4571.robot.computations.ComputationConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -95,6 +96,9 @@ public class RambotsJoystick extends Joystick{
 	 * @return value corrected for sensitivity
 	 */
 	public double adjustForSensitivity( double originalValue, double tuningParameter ){
+		if( tuningParameter == 0 ){
+			tuningParameter = ComputationConstants.JOYSTICK_TUNING_PARAMETER;
+		}
 		return ( ( Math.pow(originalValue, 3) * tuningParameter ) + ( ( 1 - tuningParameter ) * originalValue ) );
 	}
 }
