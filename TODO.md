@@ -7,6 +7,7 @@
 5. PID integration
 6. Add camera + vision processing subsystems
 7. Advanced autonomous commands 
+8. Run a webserver
 
 # Ask Conor
 

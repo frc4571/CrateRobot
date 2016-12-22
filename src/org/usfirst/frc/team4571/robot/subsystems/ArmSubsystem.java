@@ -11,26 +11,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author arjunrao87
  *
  */
-public class ArmSubsystem extends Subsystem implements IRambotsSubsystem {
+public class ArmSubsystem extends Subsystem {
 	
 	private static final DoubleSolenoid GRABBER_SOLENOID = new DoubleSolenoid(NetworkMapping.GRABBER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.GRABBER_SOLENOID_REVERSE_CHANNEL);
 	private static final DoubleSolenoid SWEEPER_SOLENOID = new DoubleSolenoid(NetworkMapping.SWEEPER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.SWEEPER_SOLENOID_REVERSE_CHANNEL);
 	
-	private static ArmSubsystem armSubsystem;
-
 	//---------------------------------------- Required definitions ----------------------------------//
-
-	@Override
-	public Subsystem getInstance() {
-		if( armSubsystem == null ){
-			synchronized( ArmSubsystem.class ){
-				if( armSubsystem == null ){
-					armSubsystem = new ArmSubsystem();
-				}
-			}
-		}
-		return armSubsystem;
-	}
 	
 	//TODO
 	@Override

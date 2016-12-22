@@ -12,14 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author arjunrao87
  *
  */
-public class DriveSubsystem extends Subsystem implements IRambotsSubsystem {
+public class DriveSubsystem extends Subsystem {
 
 	private static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.FRONT_LEFT_TALON_CHANNEL);
 	private static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new TalonSRX(NetworkMapping.FRONT_RIGHT_TALON_CHANNEL);
 	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(NetworkMapping.REAR_LEFT_TALON_CHANNEL);
 	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.REAR_RIGHT_TALON_CHANNEL);
-
-	private static DriveSubsystem driveSubsystem;
 	
 	private RobotDrive robotDrive;
 	
@@ -31,18 +29,6 @@ public class DriveSubsystem extends Subsystem implements IRambotsSubsystem {
 	}
 	
 	//------------------------------------------ Required definitions ------------------------------------//
-	
-	@Override
-	public Subsystem getInstance() {
-		if( driveSubsystem == null ){
-			synchronized( DriveSubsystem.class ){
-				if( driveSubsystem == null ){
-					driveSubsystem = new DriveSubsystem();
-				}
-			}
-		}
-		return driveSubsystem;
-	}
 	
 	//TODO
 	@Override
