@@ -34,3 +34,7 @@
 
 1. What other methods can you have in the Elevator speed controller that you can expose through the subsystem?
 
+## C. Arms subsystem
+
+1. How can we use potentiometers/limit switches to control speed of movement of the arms instead of having a straight open/shut policy?
+2. How do we know that the arm is gripping the box tight enough to lift it up? Is the shut solenoid function enough?
