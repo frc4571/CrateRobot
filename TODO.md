@@ -1,6 +1,6 @@
 # Strategy
 
-~~ 1. Make basic versions of all subsystems ~~ 
+1. Make basic versions of all subsystems 
 2. Get teleop commands working
 3. Get simple autonomous commands working
 4. Gradually introduce sensory inputs ( gyro, accelerometers, etc)
