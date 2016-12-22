@@ -23,6 +23,10 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	//---------------------------------------- Elevator System definitions ----------------------------------//
 	
+	public void initializeSubsytem(){
+		ELEVATOR_SPEED_CONTROLLER.initialize();
+	}
+	
 	public void moveUp( double speed ){
 		ELEVATOR_SPEED_CONTROLLER.moveUp( speed );
 	}

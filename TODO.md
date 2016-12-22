@@ -33,6 +33,7 @@
 ## B. Elevator subsystem
 
 1. What other methods can you have in the Elevator speed controller that you can expose through the subsystem?
+2. In the speed controllers, right now when the speed is set to 0.5, there is nothing in the code that says for how long it should run at this speed. Isnt that required?
 
 ## C. Arms subsystem
 

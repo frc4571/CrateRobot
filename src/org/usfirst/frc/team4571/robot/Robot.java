@@ -2,6 +2,7 @@ package org.usfirst.frc.team4571.robot;
 
 import jaci.openrio.toast.lib.module.IterativeModule;
 
+import org.usfirst.frc.team4571.robot.components.LimitSwitch;
 import org.usfirst.frc.team4571.robot.components.RambotsJoystick;
 import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
@@ -31,6 +32,12 @@ public class Robot extends IterativeModule {
 	
 	// Joystick
 	public static final RambotsJoystick JOYSTICK = new RambotsJoystick(NetworkMapping.JOYSTICK_CHANNEL);
+	
+	// Limit switches
+	public static final LimitSwitch LEFT_ARM_UP_SWITCH    = new LimitSwitch( NetworkMapping.LEFT_ARM_UP_SWITCH_CHANNEL );
+	public static final LimitSwitch LEFT_ARM_DOWN_SWITCH  = new LimitSwitch( NetworkMapping.LEFT_ARM_DOWN_SWITCH_CHANNEL );
+	public static final LimitSwitch RIGHT_ARM_UP_SWITCH   = new LimitSwitch( NetworkMapping.RIGHT_ARM_UP_SWITCH_CHANNEL );
+	public static final LimitSwitch RIGHT_ARM_DOWN_SWITCH = new LimitSwitch( NetworkMapping.RIGHT_ARM_DOWN_SWITCH_CHANNEL );
 	
 	//=================================================================//
 	

@@ -30,4 +30,11 @@ public final class NetworkMapping {
 	public static final int ELEVATOR_LEFT_TALON_CAN_ID = 1;
 	public static final int ELEVATOR_RIGHT_TALON_CAN_ID = 2;
 	
+	// Limit switch channel mapping
+	
+	public static final int LEFT_ARM_DOWN_SWITCH_CHANNEL = 0;
+	public static final int LEFT_ARM_UP_SWITCH_CHANNEL = 1;
+	public static final int RIGHT_ARM_UP_SWITCH_CHANNEL = 2;
+	public static final int RIGHT_ARM_DOWN_SWITCH_CHANNEL = 3;
+	
 }

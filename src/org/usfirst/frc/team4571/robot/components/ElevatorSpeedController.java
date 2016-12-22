@@ -28,6 +28,11 @@ public class ElevatorSpeedController{
 		this.rightSpeedController.setInverted(isInverted);
 	}
 	
+	public void initialize(){
+		this.leftSpeedController.reset();
+		this.rightSpeedController.reset();
+	}
+	
 	public void moveUp( double upwardSpeed ){
 		if( upwardSpeed < 0 ){
 			throw new InvalidRambotOperationException( "Negative speed provided. Please provide positive speed to move up." );
@@ -52,6 +57,7 @@ public class ElevatorSpeedController{
 		Timer.delay(0.01);
 	}
 	
+	// TODO : Check if you need to disable and reset as well. How do they get reenabled?
 	public void stop(){
 		this.leftSpeedController.set(0.0);
 		this.rightSpeedController.set(0.0);

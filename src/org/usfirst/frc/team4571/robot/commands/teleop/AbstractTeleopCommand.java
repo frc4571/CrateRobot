@@ -19,11 +19,6 @@ public abstract class AbstractTeleopCommand extends Command {
 	}
 	
 	@Override
-	protected boolean isFinished() {
-		return false;
-	}
-
-	@Override
 	protected void end() {}
 
 	@Override

@@ -36,4 +36,9 @@ public class TeleopDriveCommand extends AbstractTeleopCommand{
 	protected void end() {
 		Robot.DRIVE_SUBSYSTEM.mecanumDrive( 0.0, 0.0, 0.0, 0.0 );
 	}
+
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 }
