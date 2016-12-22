@@ -1,5 +1,6 @@
-package org.usfirst.frc.team4571.robot;
+package org.usfirst.frc.team4571.robot.components;
 
+import org.usfirst.frc.team4571.robot.NetworkMapping;
 import org.usfirst.frc.team4571.robot.exception.InvalidRambotOperationException;
 
 import edu.wpi.first.wpilibj.CANTalon;
