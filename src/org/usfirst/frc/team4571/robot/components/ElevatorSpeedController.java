@@ -18,8 +18,14 @@ public class ElevatorSpeedController{
 	private CANTalon rightSpeedController;
 	
 	public ElevatorSpeedController(){
+		this( false );
+	}
+	
+	public ElevatorSpeedController( boolean isInverted ){
 		this.leftSpeedController  = new CANTalon( NetworkMapping.ELEVATOR_LEFT_TALON_CAN_ID );
 		this.rightSpeedController = new CANTalon( NetworkMapping.ELEVATOR_RIGHT_TALON_CAN_ID );
+		this.leftSpeedController.setInverted(isInverted);
+		this.rightSpeedController.setInverted(isInverted);
 	}
 	
 	public void moveUp( double upwardSpeed ){
@@ -49,7 +55,21 @@ public class ElevatorSpeedController{
 	public void stop(){
 		this.leftSpeedController.set(0.0);
 		this.rightSpeedController.set(0.0);
+		this.leftSpeedController.disableControl();
+		this.rightSpeedController.disableControl();
 		this.leftSpeedController.reset();
 		this.rightSpeedController.reset();
+	}
+	
+	public boolean isEnabled(){
+		return leftSpeedController.isEnabled() && rightSpeedController.isEnabled();
+	}
+	
+	public double getLeftSpeedControllerError(){
+		return this.leftSpeedController.getError();
+	}
+	
+	public double getRightSpeedControllerError(){
+		return this.rightSpeedController.getError();
 	}
 }

@@ -19,7 +19,7 @@ public class DriveSubsystem extends Subsystem implements IRambotsSubsystem {
 	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(NetworkMapping.REAR_LEFT_TALON_CHANNEL);
 	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.REAR_RIGHT_TALON_CHANNEL);
 
-	public static DriveSubsystem driveSubsystem;
+	private static DriveSubsystem driveSubsystem;
 	
 	private RobotDrive robotDrive;
 	

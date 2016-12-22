@@ -13,16 +13,21 @@ public class ElevatorSubsystem extends Subsystem implements IRambotsSubsystem {
 
 	private static final ElevatorSpeedController ELEVATOR_SPEED_CONTROLLER = new ElevatorSpeedController();
 
-	public ElevatorSubsystem() {
+	private static ElevatorSubsystem elevatorSubsystem;
 	
-	}
-
 	//---------------------------------------- Required definitions ----------------------------------//
 	
 	//TODO
 	@Override
 	public Subsystem getInstance() {
-		return null;
+		if( elevatorSubsystem == null ){
+			synchronized( ElevatorSubsystem.class ){
+				if( elevatorSubsystem == null ){
+					elevatorSubsystem = new ElevatorSubsystem();
+				}
+			}
+		}
+		return elevatorSubsystem;
 	}
 	
 	//TODO
