@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author arjunrao87
  *
  */
-public class DriveSubsystem extends Subsystem implements RambotsSubsystem {
+public class DriveSubsystem extends Subsystem implements IRambotsSubsystem {
 
-	public static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.FRONT_LEFT_TALON_CHANNEL);
-	public static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new TalonSRX(NetworkMapping.FRONT_RIGHT_TALON_CHANNEL);
-	public static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(NetworkMapping.REAR_LEFT_TALON_CHANNEL);
-	public static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.REAR_RIGHT_TALON_CHANNEL);
+	private static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.FRONT_LEFT_TALON_CHANNEL);
+	private static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new TalonSRX(NetworkMapping.FRONT_RIGHT_TALON_CHANNEL);
+	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(NetworkMapping.REAR_LEFT_TALON_CHANNEL);
+	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.REAR_RIGHT_TALON_CHANNEL);
 
 	public static DriveSubsystem driveSubsystem;
 	
@@ -44,6 +44,7 @@ public class DriveSubsystem extends Subsystem implements RambotsSubsystem {
 		return driveSubsystem;
 	}
 	
+	//TODO
 	@Override
 	protected void initDefaultCommand() {
 		// No default command

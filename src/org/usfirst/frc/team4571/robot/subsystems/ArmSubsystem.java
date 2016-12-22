@@ -11,17 +11,43 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author arjunrao87
  *
  */
-public class ArmSubsystem extends Subsystem implements RambotsSubsystem {
+public class ArmSubsystem extends Subsystem implements IRambotsSubsystem {
 	
-	public static final SolenoidBase GRABBER_SOLENOID = new DoubleSolenoid(NetworkMapping.GRABBER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.GRABBER_SOLENOID_REVERSE_CHANNEL);
-	public static final SolenoidBase SWEEPER_SOLENOID = new DoubleSolenoid(NetworkMapping.SWEEPER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.SWEEPER_SOLENOID_REVERSE_CHANNEL);
+	private static final DoubleSolenoid GRABBER_SOLENOID = new DoubleSolenoid(NetworkMapping.GRABBER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.GRABBER_SOLENOID_REVERSE_CHANNEL);
+	private static final DoubleSolenoid SWEEPER_SOLENOID = new DoubleSolenoid(NetworkMapping.SWEEPER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.SWEEPER_SOLENOID_REVERSE_CHANNEL);
 	
+	public ArmSubsystem() {
+	
+	}
+	
+	//---------------------------------------- Required definitions ----------------------------------//
+
+	//TODO
 	@Override
 	public Subsystem getInstance() {
 		return null;
 	}
 	
+	//TODO
 	@Override
 	protected void initDefaultCommand() {		
+	}
+	
+	//-------------------------------------- Arm Subsystem specific methods ---------------------------------//
+
+	public void pushOut(){
+		
+	}
+	
+	public void pushIn(){
+		
+	}
+	
+	public void sweepDown(){
+		
+	}
+	
+	public void sweepUp(){
+		
 	}
 }

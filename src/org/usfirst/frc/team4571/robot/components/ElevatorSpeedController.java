@@ -4,6 +4,7 @@ import org.usfirst.frc.team4571.robot.NetworkMapping;
 import org.usfirst.frc.team4571.robot.exception.InvalidRambotOperationException;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Wrapper class for the operation of the 2 talons that operate the elevator system
@@ -27,6 +28,10 @@ public class ElevatorSpeedController{
 		}
 		this.leftSpeedController.set(upwardSpeed);
 		this.rightSpeedController.set(upwardSpeed);
+		
+		//TODO : Is this even required?
+		// The CANTalon only receives updates every 10ms, so updating more quickly would not be useful
+		Timer.delay(0.01);
 	}
 	
 	public void moveDown( double downwardSpeed ){
@@ -35,6 +40,10 @@ public class ElevatorSpeedController{
 		}
 		this.leftSpeedController.set(downwardSpeed);
 		this.rightSpeedController.set(downwardSpeed);
+		
+		//TODO : Is this even required?
+		// The CANTalon only receives updates every 10ms, so updating more quickly would not be useful
+		Timer.delay(0.01);
 	}
 	
 	public void stop(){

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author arjunrao87
  *
  */
-public interface RambotsSubsystem {
+public interface IRambotsSubsystem {
 	
 	public Subsystem getInstance();
 	
