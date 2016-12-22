@@ -1,13 +1,11 @@
 package org.usfirst.frc.team4571.robot.components;
 
-import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
-import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
-import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
 import org.usfirst.frc.team4571.robot.computations.ComputationConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
@@ -30,7 +28,6 @@ public class RambotsJoystick extends Joystick{
 		this.buttonB = new JoystickButton( this, 2 );
 		this.buttonX = new JoystickButton( this, 3 );
 		this.buttonY = new JoystickButton( this, 4 );	
-		this.assignButtonFunctions();
 	}
 
 	public RambotsJoystick tuningParameter( double tuningParameter ){
@@ -38,15 +35,45 @@ public class RambotsJoystick extends Joystick{
 		return this;
 	}
 
-	public RambotsJoystick assignButtonFunctions(){
-		//this.buttonA.whenPressed(new Grabber(1, false));
-		//this.buttonX.whenPressed(new Sweep(1));
-		this.buttonY.whenPressed( new SimpleTeleopElevatorUpCommand() );
-		this.buttonY.whenReleased( new TeleopElevatorStopCommand() );
-		this.buttonB.whenPressed( new SimpleTeleopElevatorDownCommand()  );
-		this.buttonB.whenReleased( new TeleopElevatorStopCommand() );
+	public RambotsJoystick buttonAWhenPressed( Command command ){
+		this.buttonA.whenPressed(command);
 		return this;
-	}	
+	}
+	
+	public RambotsJoystick buttonAWhenReleased( Command command ){
+		this.buttonA.whenReleased(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonBWhenPressed( Command command ){
+		this.buttonB.whenPressed(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonBWhenReleased( Command command ){
+		this.buttonB.whenReleased(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonXWhenPressed( Command command ){
+		this.buttonX.whenPressed(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonXWhenReleased( Command command ){
+		this.buttonX.whenReleased(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonYWhenPressed( Command command ){
+		this.buttonY.whenPressed(command);
+		return this;
+	}
+	
+	public RambotsJoystick buttonYWhenReleased( Command command ){
+		this.buttonY.whenReleased(command);
+		return this;
+	}
 
 	public Button getButtonA(){
 		return this.buttonA;

@@ -2,13 +2,19 @@ package org.usfirst.frc.team4571.robot;
 
 import jaci.openrio.toast.lib.module.IterativeModule;
 
+import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
 import org.usfirst.frc.team4571.robot.components.LimitSwitch;
 import org.usfirst.frc.team4571.robot.components.RambotsJoystick;
-import org.usfirst.frc.team4571.robot.subsystems.OverallArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.OverallArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
+import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,7 +27,21 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeModule {
 	
-	//======================= RESOURCE MANAGEMENT ===================//
+	/**
+	 * Tells what the current mode of the robot is
+	 * 
+	 * @author arjunrao
+	 *
+	 */
+	public enum RobotMode {
+		
+		AUTONOMOUS,
+		TELEOP,
+		DISABLED
+
+	}
+	
+	//======================= SUBSYSTEM MANAGEMENT ===================//
 
 	// Subsystems
 	public static final OverallArmSubsystem OVERALL_ARM_SUBSYSTEM = new OverallArmSubsystem();
@@ -29,6 +49,8 @@ public class Robot extends IterativeModule {
 	public static final DriveSubsystem DRIVE_SUBSYSTEM       = new DriveSubsystem();
 	public static final ArmSubsystem ARM_SUBSYSTEM         = new ArmSubsystem();
 	public static final SweepSubsystem SWEEP_SUBSYSTEM       = new SweepSubsystem();
+	
+	//========================== COMPONENT MANAGEMENT ================//
 	
 	// Joystick
 	public static final RambotsJoystick JOYSTICK = new RambotsJoystick(NetworkMapping.JOYSTICK_CHANNEL);
@@ -39,16 +61,31 @@ public class Robot extends IterativeModule {
 	public static final LimitSwitch RIGHT_ARM_UP_SWITCH   = new LimitSwitch( NetworkMapping.RIGHT_ARM_UP_SWITCH_CHANNEL );
 	public static final LimitSwitch RIGHT_ARM_DOWN_SWITCH = new LimitSwitch( NetworkMapping.RIGHT_ARM_DOWN_SWITCH_CHANNEL );
 	
-	//=================================================================//
+	// Web server
+	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
 	
-    private Command autonomousCommand;
+	//============================= COMMAND MANAGEMENT ================//
+	
+	public static final Command SIMPLE_TELEOP_ELEVATOR_UP = new SimpleTeleopElevatorUpCommand();
+	public static final Command TELEOP_ELEVATOR_STOP = new TeleopElevatorStopCommand();
+	public static final Command SIMPLE_TELEOP_ELEVATOR_DOWN = new SimpleTeleopElevatorDownCommand();
+	public static final Command TELEOP_SWEEP = new TeleopSweepCommand();
+	public static final Command TELEOP_ARM = new TeleopArmCommand();
+	
+	private RobotMode robotMode;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	
+    	JOYSTICK.buttonAWhenPressed(TELEOP_ARM)
+    			.buttonBWhenPressed(TELEOP_SWEEP)
+    			.buttonXWhenPressed(SIMPLE_TELEOP_ELEVATOR_UP)
+    			.buttonXWhenReleased(TELEOP_ELEVATOR_STOP)
+    			.buttonYWhenPressed(SIMPLE_TELEOP_ELEVATOR_DOWN)
+    			.buttonYWhenReleased(TELEOP_ELEVATOR_STOP);
+    	WEB_SERVER.start();
     }
 	
 	/**
@@ -57,7 +94,7 @@ public class Robot extends IterativeModule {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	this.robotMode = RobotMode.DISABLED;
     }
 	
 	public void disabledPeriodic() {
@@ -71,9 +108,7 @@ public class Robot extends IterativeModule {
 	 * below the Gyro
 	 */
     public void autonomousInit() {
-        if (autonomousCommand != null) {
-        	autonomousCommand.start();
-        }
+    	this.robotMode = RobotMode.AUTONOMOUS;
     }
 
     /**
@@ -83,13 +118,14 @@ public class Robot extends IterativeModule {
         Scheduler.getInstance().run();
     }
 
-    /**
-     * TeleOp initialization
-     */
+    @Override
     public void teleopInit() {
-        if (autonomousCommand != null) {
-        	autonomousCommand.cancel();
-        }
+    	this.robotMode = RobotMode.TELEOP;
+    	SIMPLE_TELEOP_ELEVATOR_UP.start();
+    	SIMPLE_TELEOP_ELEVATOR_DOWN.start();
+    	TELEOP_ELEVATOR_STOP.start();
+    	TELEOP_ARM.start();
+    	TELEOP_SWEEP.start();
     }
 
     /**
@@ -114,5 +150,9 @@ public class Robot extends IterativeModule {
     @Override
     public String getModuleVersion() {
         return "1.0.0";
+    }
+    
+    public RobotMode getRobotMode(){
+    	return this.robotMode;
     }
 }
