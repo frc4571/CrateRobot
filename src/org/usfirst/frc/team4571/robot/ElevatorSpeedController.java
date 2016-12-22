@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 /**
  * Wrapper class for the operation of the 2 talons that operate the elevator system
  * 
- * @author arjrao
+ * @author arjunrao87
  *
  */
 public class ElevatorSpeedController{

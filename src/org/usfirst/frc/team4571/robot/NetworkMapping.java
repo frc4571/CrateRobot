@@ -2,7 +2,7 @@ package org.usfirst.frc.team4571.robot;
 
 /**
  * 
- * @author arjrao
+ * @author arjunrao87
  *
  */
 public final class NetworkMapping {
