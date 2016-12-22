@@ -1,13 +1,16 @@
 # Strategy
 
 1. Make basic versions of all subsystems 
-2. Get teleop commands working
-3. Get simple autonomous commands working
+2. Get teleop commands/commandgroups working
+3. Get simple autonomous commands/commandgroups working
 4. Gradually introduce sensory inputs ( gyro, accelerometers, etc)
 5. PID integration
 6. Add camera + vision processing subsystems
 7. Advanced autonomous commands 
 8. Run a webserver, get/set internal state
+9. Redirect Robot logs to webserver to be seen on the browser
+10. Connecting to SmartDashboard
+11. Adding test cases to the robot 
 
 # Ask Conor
 
@@ -16,16 +19,11 @@
 3. how do we set field oriented view v/s robot oriented view?
 4. How do we use Motion profiling with the CANTalon?
 
-# TODO
+# Subsystem design
 
 ## Overall
 
-1. Do you really need IRambotsSubsystem ?
-2. Do you really need a static instance of the Drive subsystem? Who is going to call it?
-3. Adding metrics and robot/subsystem health/state information
-4. Connecting to SmartDashboard
-5. Adding test cases to the robot 
-6. What other methods can you have in the specific subsystem? ( either for more functionality, or for autonomous mode, or for metrics/health )
+1. What other methods can you have in the specific subsystem? ( either for more functionality, or for autonomous mode, or for metrics/health )
 
 ## A. Drive subsystem
 
