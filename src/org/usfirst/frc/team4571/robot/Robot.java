@@ -78,6 +78,7 @@ public class Robot extends IterativeModule {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	@Override
     public void robotInit() {
     	JOYSTICK.buttonAWhenPressed(TELEOP_ARM)
     			.buttonBWhenPressed(TELEOP_SWEEP)
@@ -93,10 +94,16 @@ public class Robot extends IterativeModule {
      * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
+    @Override
     public void disabledInit(){
     	this.robotMode = RobotMode.DISABLED;
+    	ARM_SUBSYSTEM.resetArmSolenoid();
+    	SWEEP_SUBSYSTEM.resetSweeperSolenoid();
+    	DRIVE_SUBSYSTEM.reset();
+    	ELEVATOR_SUBSYSTEM.stop();
     }
 	
+    @Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -107,6 +114,7 @@ public class Robot extends IterativeModule {
 	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
 	 * below the Gyro
 	 */
+    @Override
     public void autonomousInit() {
     	this.robotMode = RobotMode.AUTONOMOUS;
     }
@@ -114,6 +122,7 @@ public class Robot extends IterativeModule {
     /**
      * This function is called periodically during autonomous
      */
+    @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
@@ -131,6 +140,7 @@ public class Robot extends IterativeModule {
     /**
      * This function is called periodically during operator control
      */
+    @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
@@ -138,6 +148,7 @@ public class Robot extends IterativeModule {
     /**
      * This function is called periodically during test mode
      */
+    @Override
     public void testPeriodic() {
         LiveWindow.run();
     }

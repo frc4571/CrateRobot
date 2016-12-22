@@ -36,11 +36,11 @@ public class ArmSubsystem extends Subsystem {
 		ARM_SOLENOID.set( DoubleSolenoid.Value.kForward );
 	}
 	
-	public Value getGrabberSolenoidValue(){
+	public Value getArmSolenoidValue(){
 		return ARM_SOLENOID.get();
 	}
 	
-	public void resetGrabberSolenoid(){
+	public void resetArmSolenoid(){
 		ARM_SOLENOID.free();
 	}
 }
