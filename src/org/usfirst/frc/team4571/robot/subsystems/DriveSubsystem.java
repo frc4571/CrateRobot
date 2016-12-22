@@ -28,6 +28,13 @@ public class DriveSubsystem extends Subsystem {
 		this.robotDrive.setMaxOutput(0.95);
 	}
 	
+	public void initializeSubsystem(){	
+		FRONT_LEFT_SPEED_CONTROLLER.set(0.0);
+		FRONT_RIGHT_SPEED_CONTROLLER.set(0.0);
+		REAR_LEFT_SPEED_CONTROLLER.set(0.0);
+		REAR_RIGHT_SPEED_CONTROLLER.set(0.0);
+	}
+	
 	//------------------------------------------ Required definitions ------------------------------------//
 	
 	//TODO

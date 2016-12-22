@@ -1,6 +1,14 @@
 package org.usfirst.frc.team4571.robot;
 
 import jaci.openrio.toast.lib.module.IterativeModule;
+
+import org.usfirst.frc.team4571.robot.components.RambotsJoystick;
+import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.GrabSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -11,9 +19,21 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  */
 public class Robot extends IterativeModule {
+	
+	//======================= RESOURCE MANAGEMENT ===================//
 
-	@SuppressWarnings("unused")
-	private OperatorInterface operatorInterface;
+	// Subsystems
+	public static final ArmSubsystem ARM_SUBSYSTEM           = new ArmSubsystem();
+	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
+	public static final DriveSubsystem DRIVE_SUBSYSTEM       = new DriveSubsystem();
+	public static final GrabSubsystem GRAB_SUBSYSTEM         = new GrabSubsystem();
+	public static final SweepSubsystem SWEEP_SUBSYSTEM       = new SweepSubsystem();
+	
+	// Joystick
+	public static final RambotsJoystick JOYSTICK = new RambotsJoystick(NetworkMapping.JOYSTICK_CHANNEL);
+	
+	//=================================================================//
+	
     private Command autonomousCommand;
 
     /**
@@ -21,7 +41,7 @@ public class Robot extends IterativeModule {
      * used for any initialization code.
      */
     public void robotInit() {
-		operatorInterface = new OperatorInterface();
+    	
     }
 	
 	/**

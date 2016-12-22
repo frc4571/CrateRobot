@@ -46,4 +46,16 @@ public class RambotsJoystick extends Joystick{
 	public Button getButtonY(){
 		return this.buttonY;
 	}
+
+	public double getXAxisSpeed() {
+		return 0;
+	}
+
+	public double getYAxisSpeed() {
+		return 0;
+	}
+
+	public double getRotationSpeed() {
+		return 0;
+	}
 }
