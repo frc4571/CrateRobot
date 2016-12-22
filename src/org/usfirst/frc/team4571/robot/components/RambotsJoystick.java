@@ -78,7 +78,7 @@ public class RambotsJoystick extends Joystick{
 	/**
 	 * 
 	 * @param originalValue
-	 * @param tuningParameter : Ranges from 0 -> 1. 
+	 * @param tuningParameter : Ranges from 0 - 1. 
 	 * 			  When tuningParametera = 0, result = original Value   i.e. not adjusted for sensitivity
 	 * 			  When tuningParameter  = 1, result = originalValue ^3 i.e. very sensitive
 	 * @return value corrected for sensitivity
