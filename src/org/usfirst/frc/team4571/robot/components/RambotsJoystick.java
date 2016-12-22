@@ -40,10 +40,9 @@ public class RambotsJoystick extends Joystick{
 	public RambotsJoystick assignButtonFunctions(){
 		//this.buttonA.whenPressed(new Grabber(1, false));
 		//this.buttonX.whenPressed(new Sweep(1));
-		boolean isLimitSwitches = true;
-		this.buttonY.whenPressed( new SimpleTeleopElevatorUpCommand( isLimitSwitches ) );
+		this.buttonY.whenPressed( new SimpleTeleopElevatorUpCommand() );
 		this.buttonY.whenReleased( new TeleopElevatorStopCommand() );
-		this.buttonB.whenPressed( new SimpleTeleopElevatorDownCommand( isLimitSwitches )  );
+		this.buttonB.whenPressed( new SimpleTeleopElevatorDownCommand()  );
 		this.buttonB.whenReleased( new TeleopElevatorStopCommand() );
 		return this;
 	}	

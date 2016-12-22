@@ -13,13 +13,8 @@ import org.usfirst.frc.team4571.robot.Robot;
  */
 public class SimpleTeleopElevatorUpCommand extends AbstractTeleopCommand{
 
-	private boolean isLimitSwitches;
-
-	// TODO : The boolean being passed is for debugging purposes. When we know 
-	// how the limit switches work, we can get rid of this argument
-	public SimpleTeleopElevatorUpCommand( boolean isLimitSwitches ){
+	public SimpleTeleopElevatorUpCommand(){
 		requires( Robot.ELEVATOR_SUBSYSTEM );
-		this.isLimitSwitches = isLimitSwitches;
 	}
 	
 	@Override
@@ -31,15 +26,7 @@ public class SimpleTeleopElevatorUpCommand extends AbstractTeleopCommand{
 
 	@Override
 	protected void execute() {
-		if( isLimitSwitches ){
-			moveUpWithLimitSwitch();		
-		} else{
-			moveUp();
-		}
-	}
-
-	public void moveUp(){
-		Robot.ELEVATOR_SUBSYSTEM.moveUp(0.5);
+		moveUpWithLimitSwitch();		
 	}
 	
 	public void moveUpWithLimitSwitch(){
@@ -50,9 +37,6 @@ public class SimpleTeleopElevatorUpCommand extends AbstractTeleopCommand{
 	
 	@Override
 	protected boolean isFinished() {
-		if( isLimitSwitches ){
-			return ( Robot.LEFT_ARM_UP_SWITCH.isSet() || !Robot.RIGHT_ARM_UP_SWITCH.isSet() ) ? true : false;
-		}
-		return false;
+		return ( Robot.LEFT_ARM_UP_SWITCH.isSet() || !Robot.RIGHT_ARM_UP_SWITCH.isSet() ) ? true : false;
 	}
 }
