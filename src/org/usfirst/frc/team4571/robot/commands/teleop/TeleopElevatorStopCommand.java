@@ -2,6 +2,12 @@ package org.usfirst.frc.team4571.robot.commands.teleop;
 
 import org.usfirst.frc.team4571.robot.Robot;
 
+/**
+ * Stop that elevator!
+ * 
+ * @author arjunrao87
+ *
+ */
 public class TeleopElevatorStopCommand extends AbstractTeleopCommand {
 
 	@Override
