@@ -17,7 +17,7 @@
 
 # Questions for Arjun/Inyong
 
-A. Drive subsystem
+## A. Drive subsystem
 
 1. How do you make the mecanum drive more sophisticated?
 2. What other methods can you have in the drive system?
@@ -25,6 +25,6 @@ A. Drive subsystem
 4. Do you really need a static instance of the Drive subsystem? Who is going to call it?
 
 
-B. Elevator subsystem
+## B. Elevator subsystem
 
 1. What other methods can you have in the Elevator speed controller that you can expose through the subsystem?
