@@ -6,7 +6,7 @@ import org.usfirst.frc.team4571.robot.computations.ComputationConstants;
 /**
  * This is a command to move the elevator system up. 
  * 
- * Note : It moves the elevator system at a fixed speed of 0.5.
+ * Note : It moves the elevator system at a fixed speed of ComputationConstants.ELEVATOR_CONSTANT_SPEED
  * At this point there are no control loops in place 
  * 
  * @author arjunrao87

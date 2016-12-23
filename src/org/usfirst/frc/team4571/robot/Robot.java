@@ -68,11 +68,16 @@ public class Robot extends IterativeModule {
 	
 	//============================= COMMAND MANAGEMENT ================//
 	
+	// TeleOp commands
 	public static final Command SIMPLE_TELEOP_ELEVATOR_UP = new SimpleTeleopElevatorUpCommand();
 	public static final Command TELEOP_ELEVATOR_STOP = new TeleopElevatorStopCommand();
 	public static final Command SIMPLE_TELEOP_ELEVATOR_DOWN = new SimpleTeleopElevatorDownCommand();
 	public static final Command TELEOP_SWEEP = new TeleopSweepCommand();
 	public static final Command TELEOP_ARM = new TeleopArmCommand();
+	
+	// Autonomous commands
+	
+	//===================== Robot instance variables ===================//
 	
 	private static final Logger logger = LoggerFactory.getLogger(Robot.class);
 	private RobotMode robotMode;
@@ -131,13 +136,13 @@ public class Robot extends IterativeModule {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-    	System.err.println( "autonomousPeriodic");
     }
 
     @Override
     public void teleopInit() {
     	this.robotMode = RobotMode.TELEOP;
     	logger.info( "Robot mode initialized - " + robotMode );
+    	
     	SIMPLE_TELEOP_ELEVATOR_UP.start();
     	SIMPLE_TELEOP_ELEVATOR_DOWN.start();
     	TELEOP_ELEVATOR_STOP.start();
@@ -153,7 +158,6 @@ public class Robot extends IterativeModule {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     	logger.info( "Running " + robotMode + " periodically." );
-    	System.err.println( "teleopPeriodic");
     }
     
     /**
