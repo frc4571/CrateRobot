@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4571.robot.web;
 
-import static spark.Spark.get;
-import static spark.SparkBase.port;
+import static spark.Spark.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
