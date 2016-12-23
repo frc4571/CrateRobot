@@ -18,13 +18,13 @@ public class RobotWebServer {
 	
     public static void main(String[] args) {
     	RobotWebServer webserver = new RobotWebServer();
-    	int port = 4571;
-    	webserver.start(port);
-    	logger.info( "RobotWebServer is up and running at port " + port );
+    	int portNum = 4571;
+    	webserver.start(portNum);
+    	logger.info( "RobotWebServer is up and running at port " + portNum );
     }
     
-    public void start( int port ){
-    	port( port );
+    public void start( int portNum ){
+    	port( portNum );
         setupRoutes();
     }
     
