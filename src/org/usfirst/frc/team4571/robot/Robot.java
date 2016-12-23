@@ -2,6 +2,8 @@ package org.usfirst.frc.team4571.robot;
 
 import jaci.openrio.toast.lib.module.IterativeModule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
@@ -72,6 +74,7 @@ public class Robot extends IterativeModule {
 	public static final Command TELEOP_SWEEP = new TeleopSweepCommand();
 	public static final Command TELEOP_ARM = new TeleopArmCommand();
 	
+	private static final Logger logger = LoggerFactory.getLogger(Robot.class);
 	private RobotMode robotMode;
 
     /**
@@ -80,13 +83,14 @@ public class Robot extends IterativeModule {
      */
 	@Override
     public void robotInit() {
+		logger.info( "Starting up robot!" );
     	JOYSTICK.buttonAWhenPressed(TELEOP_ARM)
     			.buttonBWhenPressed(TELEOP_SWEEP)
     			.buttonXWhenPressed(SIMPLE_TELEOP_ELEVATOR_UP)
     			.buttonXWhenReleased(TELEOP_ELEVATOR_STOP)
     			.buttonYWhenPressed(SIMPLE_TELEOP_ELEVATOR_DOWN)
     			.buttonYWhenReleased(TELEOP_ELEVATOR_STOP);
-    	WEB_SERVER.start();
+    	WEB_SERVER.start(4571);
     }
 	
 	/**
@@ -97,6 +101,8 @@ public class Robot extends IterativeModule {
     @Override
     public void disabledInit(){
     	this.robotMode = RobotMode.DISABLED;
+    	logger.info( "Robot mode initialized - " + robotMode );
+    	
     	ARM_SUBSYSTEM.resetArmSolenoid();
     	SWEEP_SUBSYSTEM.resetSweeperSolenoid();
     	DRIVE_SUBSYSTEM.reset();
@@ -125,16 +131,19 @@ public class Robot extends IterativeModule {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+    	System.err.println( "autonomousPeriodic");
     }
 
     @Override
     public void teleopInit() {
     	this.robotMode = RobotMode.TELEOP;
+    	logger.info( "Robot mode initialized - " + robotMode );
     	SIMPLE_TELEOP_ELEVATOR_UP.start();
     	SIMPLE_TELEOP_ELEVATOR_DOWN.start();
     	TELEOP_ELEVATOR_STOP.start();
     	TELEOP_ARM.start();
     	TELEOP_SWEEP.start();
+    	System.err.println( "teleopInit");
     }
 
     /**
@@ -143,6 +152,8 @@ public class Robot extends IterativeModule {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    	logger.info( "Running " + robotMode + " periodically." );
+    	System.err.println( "teleopPeriodic");
     }
     
     /**
