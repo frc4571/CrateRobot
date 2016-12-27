@@ -40,17 +40,24 @@ dependencies {
 
 	// Robot dependencies
     compile group: 'jaci.openrio.toast', name: 'Toast', version: '+'    //Change this line to update Toast
+    compile group: 'javax.jmdns', name: 'jmdns', version: '3.4.1'
+    
     // Web dependencies
     compile group: 'org.json', name: 'json', version: '20160810'
     compile "com.sparkjava:spark-core:2.5.4"
+	
 	// Logging dependencies
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
-	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.22'
-	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.22'
+    
     // Test dependencies
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
+configurations{
+
+	// Exclusions
+    compile.exclude group: "ch.qos.logback", module: "logback-classic"
+}
 //----------------------------------------- TEAM INFO MANAGEMENT ------------------------------------------------//
 
 gradlerio.robotClass = "org.usfirst.frc.team4571.Robot"   //The class for the main Robot Class. Used in manifest
