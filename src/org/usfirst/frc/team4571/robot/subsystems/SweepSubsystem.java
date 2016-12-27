@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4571.robot.subsystems;
 
-import org.usfirst.frc.team4571.robot.NetworkMapping;
+import org.usfirst.frc.team4571.robot.RambotsConstants;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SweepSubsystem extends Subsystem {
 	
-	private static final DoubleSolenoid SWEEPER_SOLENOID = new DoubleSolenoid(NetworkMapping.SWEEPER_SOLENOID_FORWARD_CHANNEL, NetworkMapping.SWEEPER_SOLENOID_REVERSE_CHANNEL);
+	private static final DoubleSolenoid SWEEPER_SOLENOID = new DoubleSolenoid(RambotsConstants.SWEEPER_SOLENOID_FORWARD_CHANNEL, RambotsConstants.SWEEPER_SOLENOID_REVERSE_CHANNEL);
 	
 	//---------------------------------------- Required definitions ----------------------------------//
 	

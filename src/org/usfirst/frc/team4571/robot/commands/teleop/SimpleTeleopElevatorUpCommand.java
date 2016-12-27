@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4571.robot.commands.teleop;
 
+import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.Robot;
-import org.usfirst.frc.team4571.robot.computations.ComputationConstants;
 
 /**
  * This is a command to move the elevator system up. 
@@ -32,7 +32,7 @@ public class SimpleTeleopElevatorUpCommand extends AbstractTeleopCommand{
 	
 	public void moveUpWithLimitSwitch(){
 		if( !Robot.LEFT_ARM_UP_SWITCH.isSet() && !Robot.RIGHT_ARM_UP_SWITCH.isSet() ){
-			Robot.ELEVATOR_SUBSYSTEM.moveUp( ComputationConstants.ELEVATOR_CONSTANT_SPEED );
+			Robot.ELEVATOR_SUBSYSTEM.moveUp( RambotsConstants.ELEVATOR_CONSTANT_SPEED );
 		}
 	}
 	

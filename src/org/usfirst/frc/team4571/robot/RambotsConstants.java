@@ -5,7 +5,11 @@ package org.usfirst.frc.team4571.robot;
  * @author arjunrao87
  *
  */
-public final class NetworkMapping {
+public final class RambotsConstants {
+	
+	//--------------------------------------------------------------------------------------------//
+	//---------------------------------- NETWORK CONSTANTS ---------------------------------------//
+	//--------------------------------------------------------------------------------------------//
 	
 	// SRX Speed Controller Channel Mapping
 
@@ -37,4 +41,12 @@ public final class NetworkMapping {
 	public static final int RIGHT_ARM_UP_SWITCH_CHANNEL = 2;
 	public static final int RIGHT_ARM_DOWN_SWITCH_CHANNEL = 3;
 	
+	
+	//--------------------------------------------------------------------------------------------//
+	// ---------------------------------- OPERATION CONSTANTS ------------------------------------//
+	//--------------------------------------------------------------------------------------------//
+	
+	public static final double ELEVATOR_CONSTANT_SPEED   = 0.5;
+	public static final double JOYSTICK_TUNING_PARAMETER = 0.5; 
+
 }

@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4571.robot.subsystems;
 
-import org.usfirst.frc.team4571.robot.NetworkMapping;
+import org.usfirst.frc.team4571.robot.RambotsConstants;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSubsystem extends Subsystem {
 
-	private static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.FRONT_LEFT_TALON_CHANNEL);
-	private static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new TalonSRX(NetworkMapping.FRONT_RIGHT_TALON_CHANNEL);
-	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(NetworkMapping.REAR_LEFT_TALON_CHANNEL);
-	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(NetworkMapping.REAR_RIGHT_TALON_CHANNEL);
+	private static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new TalonSRX(RambotsConstants.FRONT_LEFT_TALON_CHANNEL);
+	private static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new TalonSRX(RambotsConstants.FRONT_RIGHT_TALON_CHANNEL);
+	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new TalonSRX(RambotsConstants.REAR_LEFT_TALON_CHANNEL);
+	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new TalonSRX(RambotsConstants.REAR_RIGHT_TALON_CHANNEL);
 	
 	private RobotDrive robotDrive;
 	

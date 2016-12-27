@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4571.robot.components;
 
-import org.usfirst.frc.team4571.robot.computations.ComputationConstants;
+import org.usfirst.frc.team4571.robot.RambotsConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -124,7 +124,7 @@ public class RambotsJoystick extends Joystick{
 	 */
 	public double adjustForSensitivity( double originalValue, double tuningParameter ){
 		if( tuningParameter == 0 ){
-			tuningParameter = ComputationConstants.JOYSTICK_TUNING_PARAMETER;
+			tuningParameter = RambotsConstants.JOYSTICK_TUNING_PARAMETER;
 		}
 		return ( ( Math.pow(originalValue, 3) * tuningParameter ) + ( ( 1 - tuningParameter ) * originalValue ) );
 	}

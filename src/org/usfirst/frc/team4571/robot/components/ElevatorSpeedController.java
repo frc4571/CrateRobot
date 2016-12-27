@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4571.robot.components;
 
-import org.usfirst.frc.team4571.robot.NetworkMapping;
+import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.exception.InvalidRambotOperationException;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -22,8 +22,8 @@ public class ElevatorSpeedController{
 	}
 	
 	public ElevatorSpeedController( boolean isInverted ){
-		this.leftSpeedController  = new CANTalon( NetworkMapping.ELEVATOR_LEFT_TALON_CAN_ID );
-		this.rightSpeedController = new CANTalon( NetworkMapping.ELEVATOR_RIGHT_TALON_CAN_ID );
+		this.leftSpeedController  = new CANTalon( RambotsConstants.ELEVATOR_LEFT_TALON_CAN_ID );
+		this.rightSpeedController = new CANTalon( RambotsConstants.ELEVATOR_RIGHT_TALON_CAN_ID );
 		this.leftSpeedController.setInverted(isInverted);
 		this.rightSpeedController.setInverted(isInverted);
 	}

@@ -10,4 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class AbstractAutonomousCommand extends Command{
 	
+
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		
+	}
 }
