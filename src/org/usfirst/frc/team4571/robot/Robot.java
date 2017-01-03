@@ -14,6 +14,7 @@ import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.sensors.LimitSwitch;
+import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
 import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -66,6 +67,9 @@ public class Robot extends IterativeModule {
 	
 	// Network Tables
 	public static final NetworkTable NETWORK_TABLE = NetworkTable.getTable( RambotsConstants.TEAM_ID_STRING );
+	
+	// State management
+	public static final StateManager STATE_MANAGER = new StateManager();
 	
 	//============================= COMMAND MANAGEMENT ================//
 	

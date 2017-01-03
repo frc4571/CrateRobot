@@ -11,6 +11,9 @@
 9. Redirect Robot logs to webserver to be seen on the browser
 10. Connecting to SmartDashboard
 11. Adding test cases to the robot 
+12. Adding metrics to find how long things are taking and exposing those graphs via webserver
+13. Connect Actions, Bounds, Orientation, Modules, Navigators, State,  
+14. Figuring out runnables and threads in the robot
 
 # Ask Conor
 
@@ -19,6 +22,11 @@
 3. how do we set field oriented view v/s robot oriented view?
 4. How do we use Motion profiling with the CANTalon?
 5. How many joysticks/what kind of controllers are we using for the robot?
+6. Trajectory planning/PID 
+7. What hardware do we have that we bought recently? Is it catalogued?
+8. Using GRIP
+9. How much data( throughput/volume ) can you publish on Network Tables?
+10. Using Smart Dashboard
 
 # Subsystem design
 
