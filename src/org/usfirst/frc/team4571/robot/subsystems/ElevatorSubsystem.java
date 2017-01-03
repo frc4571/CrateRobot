@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4571.robot.subsystems;
 
-import org.usfirst.frc.team4571.robot.components.ElevatorSpeedController;
+import org.usfirst.frc.team4571.robot.subsystems.components.ElevatorSpeedController;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.components;
+package org.usfirst.frc.team4571.robot.subsystems.sensors;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.util;
+package org.usfirst.frc.team4571.robot.subsystems.motion;
 
 /**
  * Defines the min, max and home positions for a particular movement

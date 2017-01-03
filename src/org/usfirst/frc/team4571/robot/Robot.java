@@ -9,13 +9,11 @@ import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpComm
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
-import org.usfirst.frc.team4571.robot.components.LimitSwitch;
-import org.usfirst.frc.team4571.robot.components.RambotsJoystick;
 import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team4571.robot.subsystems.OverallArmSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.sensors.LimitSwitch;
 import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -46,7 +44,6 @@ public class Robot extends IterativeModule {
 	//======================= SUBSYSTEM MANAGEMENT ===================//
 
 	// Subsystems
-	public static final OverallArmSubsystem OVERALL_ARM_SUBSYSTEM = new OverallArmSubsystem();
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
 	public static final DriveSubsystem DRIVE_SUBSYSTEM       = new DriveSubsystem();
 	public static final ArmSubsystem ARM_SUBSYSTEM         = new ArmSubsystem();

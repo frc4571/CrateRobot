@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.components;
+package org.usfirst.frc.team4571.robot.subsystems.components;
 
 import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.exception.InvalidRambotOperationException;

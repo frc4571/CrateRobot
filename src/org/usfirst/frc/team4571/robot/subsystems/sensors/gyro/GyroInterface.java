@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.util.gyro;
+package org.usfirst.frc.team4571.robot.subsystems.sensors.gyro;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

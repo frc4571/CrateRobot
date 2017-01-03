@@ -1,6 +1,4 @@
-package org.usfirst.frc.team4571.robot.components;
-
-import org.usfirst.frc.team4571.robot.RambotsConstants;
+package org.usfirst.frc.team4571.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.navigator;
+package org.usfirst.frc.team4571.robot.subsystems.navigator;
 
 
 /**

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.state;
+package org.usfirst.frc.team4571.robot.subsystems.state;
 
 /**
  * Rough sketch of what state should look like

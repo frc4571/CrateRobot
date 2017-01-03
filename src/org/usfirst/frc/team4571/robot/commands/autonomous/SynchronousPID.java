@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.util;
+package org.usfirst.frc.team4571.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.util.BoundaryException;
 

@@ -1,11 +1,11 @@
-package org.usfirst.frc.team4571.robot.util.gyro;
+package org.usfirst.frc.team4571.robot.subsystems.sensors.gyro;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
-import org.usfirst.frc.team4571.robot.util.gyro.GyroInterface.ErrorFlag;
+import org.usfirst.frc.team4571.robot.subsystems.sensors.gyro.GyroInterface.ErrorFlag;
 
 import edu.wpi.first.wpilibj.Notifier;
 
