@@ -19,6 +19,7 @@ import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * 
@@ -62,6 +63,9 @@ public class Robot extends IterativeModule {
 	
 	// Web server
 	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
+	
+	// Network Tables
+	public static final NetworkTable NETWORK_TABLE = NetworkTable.getTable( RambotsConstants.TEAM_ID_STRING );
 	
 	//============================= COMMAND MANAGEMENT ================//
 	

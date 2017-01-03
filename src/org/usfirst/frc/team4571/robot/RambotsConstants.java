@@ -47,6 +47,13 @@ public final class RambotsConstants {
 	//--------------------------------------------------------------------------------------------//
 	
 	public static final double ELEVATOR_CONSTANT_SPEED   = 0.5;
-	public static final double JOYSTICK_TUNING_PARAMETER = 0.5; 
+	public static final double JOYSTICK_TUNING_PARAMETER = 0.5;
+	
+	//--------------------------------------------------------------------------------------------//
+	// -------------------------------------- OTHER CONSTANTS ------------------------------------//
+	//--------------------------------------------------------------------------------------------//
+	
+	public static final String TEAM_ID_STRING = "4571";
+	public static final int TEAM_ID = 4571;
 
 }
