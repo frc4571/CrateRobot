@@ -14,6 +14,9 @@
 12. Adding metrics to find how long things are taking and exposing those graphs via webserver
 13. Connect Actions, Bounds, Orientation, Modules, Navigators, State,  
 14. Figuring out runnables and threads in the robot
+15. Linking USBCamera and DriveSystem
+16. Testing the robot code without Toast
+17. Why is gradle adding all those extra jars?
 
 # Ask Conor
 
