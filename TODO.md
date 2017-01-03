@@ -5,7 +5,7 @@
 3. Get simple autonomous commands/commandgroups working
 4. Gradually introduce sensory inputs ( gyro, accelerometers, etc)
 5. PID integration
-6. Add camera + vision processing subsystems
+6. Figure out how to use GRIP pipeline in the robot and some vision processing/camera stuff too.
 7. Advanced autonomous commands 
 8. Run a webserver, get/set internal state
 9. Redirect Robot logs to webserver to be seen on the browser
