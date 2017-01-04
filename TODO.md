@@ -17,14 +17,18 @@
 15. Linking USBCamera and DriveSystem
 16. Testing the robot code without Toast
 17. Why is gradle adding all those extra jars?
+18. Change setup to 2 joysticks 
+19. Updating PID values ( tuning ) via Smart Dashboard or web interface
+20. Throttling the processor usage to below 80% by disabling unwanted threads
+21. Throttling network bandwidth to under 7 Mbps
 
 # Ask Conor
 
-1. What is the difference between Mecanum drive, Tank Drive and Arcade Drive?
-2. Why do we "invert" the motors?
-3. how do we set field oriented view v/s robot oriented view?
+1. What is the difference between Mecanum drive, Tank Drive and Arcade Drive? [ Using Tank drive ]
+2. Why do we "invert" the motors? 
+3. how do we set field oriented view v/s robot oriented view? [ Field Oriented View ]
 4. How do we use Motion profiling with the CANTalon?
-5. How many joysticks/what kind of controllers are we using for the robot?
+5. How many joysticks/what kind of controllers are we using for the robot? [ 2 + Operator ]
 6. Trajectory planning/PID 
 7. What hardware do we have that we bought recently? Is it catalogued?
 8. Using GRIP
