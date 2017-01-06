@@ -2,8 +2,10 @@
 package org.usfirst.frc.team4571.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.usfirst.frc.team4571.robot.subsystems.DriveSystem;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team4571.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4571.robot.subsystems.ExampleSubsystem;
@@ -20,7 +22,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final DriveSystem drivesystem = new DriveSystem();
+	public static final Joystick1 joystick1= new Joystick1();
 	public static OperatorInterface oi;
+	
+	
+	
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -30,11 +37,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OperatorInterface();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+		
     }
 	
 	/**
@@ -60,8 +63,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-        
+     
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
 		case "My Auto":
@@ -74,8 +76,8 @@ public class Robot extends IterativeRobot {
 		} */
     	
     	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
     }
+        
 
     /**
      * This function is called periodically during autonomous
@@ -89,7 +91,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        
     }
 
     /**
