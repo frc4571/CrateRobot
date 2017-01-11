@@ -41,6 +41,13 @@ public final class RambotsConstants {
 	public static final int RIGHT_ARM_UP_SWITCH_CHANNEL = 2;
 	public static final int RIGHT_ARM_DOWN_SWITCH_CHANNEL = 3;
 	
+	// Sensors
+	
+	public static final int LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_A  = 1;
+	public static final int LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_B  = 2;
+	public static final int RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_A = 3;
+	public static final int RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B = 4;
+	
 	
 	//--------------------------------------------------------------------------------------------//
 	// ---------------------------------- OPERATION CONSTANTS ------------------------------------//

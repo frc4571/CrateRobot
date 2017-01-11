@@ -56,12 +56,6 @@ public class Robot extends IterativeModule {
 	// Joystick
 	public static final RambotsJoystick JOYSTICK = new RambotsJoystick(RambotsConstants.JOYSTICK_CHANNEL);
 	
-	// Limit switches
-	public static final LimitSwitch LEFT_ARM_UP_SWITCH    = new LimitSwitch( RambotsConstants.LEFT_ARM_UP_SWITCH_CHANNEL );
-	public static final LimitSwitch LEFT_ARM_DOWN_SWITCH  = new LimitSwitch( RambotsConstants.LEFT_ARM_DOWN_SWITCH_CHANNEL );
-	public static final LimitSwitch RIGHT_ARM_UP_SWITCH   = new LimitSwitch( RambotsConstants.RIGHT_ARM_UP_SWITCH_CHANNEL );
-	public static final LimitSwitch RIGHT_ARM_DOWN_SWITCH = new LimitSwitch( RambotsConstants.RIGHT_ARM_DOWN_SWITCH_CHANNEL );
-	
 	// Web server
 	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
 	

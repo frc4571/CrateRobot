@@ -21,8 +21,8 @@ public class SimpleTeleopElevatorDownCommand extends AbstractTeleopCommand{
 	@Override
 	protected void initialize() {
 		Robot.ELEVATOR_SUBSYSTEM.initializeSubsytem();
-		Robot.LEFT_ARM_DOWN_SWITCH.reset();
-		Robot.RIGHT_ARM_DOWN_SWITCH.reset();
+		Robot.ELEVATOR_SUBSYSTEM.getLeftArmDownSwitch().reset();
+		Robot.ELEVATOR_SUBSYSTEM.getRightArmDownSwitch().reset();
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class SimpleTeleopElevatorDownCommand extends AbstractTeleopCommand{
 	}
 
 	public void moveDownWithLimitSwitch(){
-		if( !Robot.LEFT_ARM_DOWN_SWITCH.isSet() && !Robot.RIGHT_ARM_DOWN_SWITCH.isSet() ){
+		if( !Robot.ELEVATOR_SUBSYSTEM.getLeftArmDownSwitch().isSet() && !Robot.ELEVATOR_SUBSYSTEM.getRightArmDownSwitch().isSet() ){
 			Robot.ELEVATOR_SUBSYSTEM.moveDown( RambotsConstants.ELEVATOR_CONSTANT_SPEED );
 		}
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return ( Robot.LEFT_ARM_DOWN_SWITCH.isSet() || !Robot.RIGHT_ARM_DOWN_SWITCH.isSet() ) ? true : false;
+		return ( Robot.ELEVATOR_SUBSYSTEM.getLeftArmDownSwitch().isSet() || !Robot.ELEVATOR_SUBSYSTEM.getRightArmDownSwitch().isSet() ) ? true : false;
 	}
 }
