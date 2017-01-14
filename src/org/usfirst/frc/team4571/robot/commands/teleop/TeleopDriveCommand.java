@@ -5,7 +5,7 @@ import org.usfirst.frc.team4571.robot.Robot;
 /**
  * Drive command in Teleop mode
  * 
- * Uses Mecanum drive as sole driving method
+ * Uses Tank drive 
  * 
  * @author arjunrao87
  *
@@ -13,31 +13,30 @@ import org.usfirst.frc.team4571.robot.Robot;
 public class TeleopDriveCommand extends AbstractTeleopCommand{
 
 	public TeleopDriveCommand(){
-		requires( Robot.DRIVE_SUBSYSTEM );
+		requires( Robot.DRIVE_PID_SUBSYSTEM );
 	}
 	
 	@Override
 	protected void initialize() {
-		Robot.DRIVE_SUBSYSTEM.initializeSubsystem();
+		Robot.DRIVE_PID_SUBSYSTEM.initializeSubsystem();
 	}
 
 	@Override
 	protected void execute() {
-		driveMecanum();
+		drive();
 	}
-	
-	//TODO : Should gyro angle be used or is this 
-	public void driveMecanum(){
-		Robot.DRIVE_SUBSYSTEM.mecanumDrive(Robot.JOYSTICK.getXAxisSpeed(), Robot.JOYSTICK.getYAxisSpeed(), Robot.JOYSTICK.getRotationSpeed(), 0.0 );
+	 
+	public void drive(){
+		Robot.DRIVE_PID_SUBSYSTEM.drive( Robot.JOYSTICK_LEFT, Robot.JOYSTICK_RIGHT );
 	}
 
 	@Override
 	protected void end() {
-		Robot.DRIVE_SUBSYSTEM.mecanumDrive( 0.0, 0.0, 0.0, 0.0 );
+		Robot.DRIVE_PID_SUBSYSTEM.drive( 0, 0 );
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.DRIVE_PID_SUBSYSTEM.getDistanceController().onTarget();
 	}
 }

@@ -20,7 +20,8 @@ public final class RambotsConstants {
 	
 	// Joystick Channel Mapping
 	
-	public static int JOYSTICK_CHANNEL = 0;
+	public static int LEFT_JOYSTICK_CHANNEL  = 0;
+	public static int RIGHT_JOYSTICK_CHANNEL = 1;
 	
 	// Solenoid Channel Mapping
 	

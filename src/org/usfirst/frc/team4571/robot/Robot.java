@@ -10,10 +10,10 @@ import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
 import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DrivePIDSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
-import org.usfirst.frc.team4571.robot.subsystems.sensors.LimitSwitch;
 import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
 import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
@@ -46,16 +46,17 @@ public class Robot extends IterativeModule {
 	//======================= SUBSYSTEM MANAGEMENT ===================//
 
 	// Subsystems
-	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-	public static final DriveSubsystem DRIVE_SUBSYSTEM       = new DriveSubsystem();
-	public static final ArmSubsystem ARM_SUBSYSTEM         = new ArmSubsystem();
-	public static final SweepSubsystem SWEEP_SUBSYSTEM       = new SweepSubsystem();
+	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM  = new ElevatorSubsystem();
+	public static final DriveSubsystem DRIVE_SUBSYSTEM        = new DriveSubsystem();
+	public static final DrivePIDSubsystem DRIVE_PID_SUBSYSTEM = new DrivePIDSubsystem();
+	public static final ArmSubsystem ARM_SUBSYSTEM            = new ArmSubsystem();
+	public static final SweepSubsystem SWEEP_SUBSYSTEM        = new SweepSubsystem();
 	
 	//========================== COMPONENT MANAGEMENT ================//
 	
 	// Joystick
-	public static final RambotsJoystick JOYSTICK = new RambotsJoystick(RambotsConstants.JOYSTICK_CHANNEL);
-	
+	public static final RambotsJoystick JOYSTICK_LEFT  = new RambotsJoystick(RambotsConstants.LEFT_JOYSTICK_CHANNEL);
+	public static final RambotsJoystick JOYSTICK_RIGHT = new RambotsJoystick(RambotsConstants.RIGHT_JOYSTICK_CHANNEL);
 	// Web server
 	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
 	
@@ -88,7 +89,7 @@ public class Robot extends IterativeModule {
 	@Override
     public void robotInit() {
 		logger.info( "Starting up robot!" );
-    	JOYSTICK.buttonAWhenPressed(TELEOP_ARM)
+    	JOYSTICK_LEFT.buttonAWhenPressed(TELEOP_ARM)
     			.buttonBWhenPressed(TELEOP_SWEEP)
     			.buttonXWhenPressed(SIMPLE_TELEOP_ELEVATOR_UP)
     			.buttonXWhenReleased(TELEOP_ELEVATOR_STOP)
