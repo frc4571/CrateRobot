@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4571.robot.subsystems;
 
 import org.usfirst.frc.team4571.robot.RambotsConstants;
-import org.usfirst.frc.team4571.robot.subsystems.pid.RetrievePIDOutput;
 import org.usfirst.frc.team4571.robot.subsystems.sensors.AverageDistanceEncoder;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -11,6 +10,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -41,20 +41,16 @@ public class DrivePIDSubsystem extends Subsystem{
 	private double encoderKp;
 	private double encoderKi;
 	private double encoderKd;
-	private double encoderPeriod = 10;
 	
 	// NavX
 	private static final AHRS NAV_X = new AHRS(SPI.Port.kMXP);	
 	private double navKp;
 	private double navKi;
 	private double navKd;
-	private double navXPeriod = 10;
 	private final double kToleranceDegrees = 2.0f;
 	
 	// PIDSource, PIDOutput
 	private final AverageDistanceEncoder averageDistanceEncoder;
-	private final RetrievePIDOutput distancePIDOutput;
-	private final RetrievePIDOutput turnPIDOutput;
 	
 	// PID Controllers
 	private final PIDController distanceController;
@@ -101,20 +97,34 @@ public class DrivePIDSubsystem extends Subsystem{
 		this.averageDistanceEncoder = new AverageDistanceEncoder(driveTrainLeftEncoder, driveTrainRightEncoder);
 
 		// Set up PID Controllers
-		this.distancePIDOutput = new RetrievePIDOutput();
-		this.distanceController = new PIDController(encoderKp, encoderKi, encoderKd, averageDistanceEncoder, distancePIDOutput, encoderPeriod);
+		this.distanceController = new PIDController(encoderKp, encoderKi, encoderKd, averageDistanceEncoder, new PIDOutput() {
+			
+			@Override
+			public void pidWrite(double output) {
+				frontLeftSpeedController.set(output);
+				rearLeftSpeedController.set(output);
+				frontRightSpeedController.set(output);
+				rearRightSpeedController.set(output);
+			}
+		});
 		this.distanceController.setPercentTolerance(5.0);
 		this.distanceController.setContinuous(false);
 		
-		this.turnPIDOutput = new RetrievePIDOutput();
-		this.turnController = new PIDController( navKp, navKi, navKd, NAV_X, turnPIDOutput, navXPeriod );
+		this.turnController = new PIDController( navKp, navKi, navKd, NAV_X, new PIDOutput(){
+
+			@Override
+			public void pidWrite(double output) {
+				// TODO Auto-generated method stub
+			}
+		});
 		this.turnController.setInputRange(-180.0f, 180.0f);
         this.turnController.setOutputRange(-1.0, 1.0);
         this.turnController.setAbsoluteTolerance(kToleranceDegrees);
 		this.turnController.setContinuous(true);
 		
 		// Smart Dashboard for PID tuning
-		LiveWindow.addActuator("DriveSystem", "RotateController", turnController);
+		LiveWindow.addActuator("DriveSystem", "DistanceController", distanceController);
+		LiveWindow.addActuator("DriveSystem", "TurnController", turnController);
 	}
 	
 	public void initializeSubsystem(){	
@@ -175,8 +185,15 @@ public class DrivePIDSubsystem extends Subsystem{
 		while( isStraightDriveFinished() ){
 			this.robotDrive.arcadeDrive( distanceController.get(), 0 );
 		}
+		this.resetPID();
 	}
 	
+	private void resetPID() {
+		this.distanceController.disable();
+		this.turnController.disable();
+		this.averageDistanceEncoder.reset();
+	}
+
 	public boolean isStraightDriveFinished() {
 		return distanceController.onTarget() && turnController.onTarget();
 	}
@@ -191,5 +208,5 @@ public class DrivePIDSubsystem extends Subsystem{
 	
 	public PIDController getDistanceController(){
 		return this.distanceController;
-	}
+	}	
 }
