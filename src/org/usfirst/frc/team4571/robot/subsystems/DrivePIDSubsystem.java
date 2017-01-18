@@ -178,7 +178,7 @@ public class DrivePIDSubsystem extends Subsystem{
 	/**
 	 * Distance you want to traverse
 	 * 
-	 * @param distanceSetPoint
+	 * @param distanceInInches
 	 */
 	public void drive( double distanceInInches ){
 		setDriveStraightParameters( distanceInInches, 0 );
