@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
- * @author arjunrao
+ * @author arjunrao 
  *
  */
 public class DriveStraightCommand extends Command {
