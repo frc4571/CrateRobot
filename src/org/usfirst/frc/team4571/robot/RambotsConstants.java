@@ -63,5 +63,13 @@ public final class RambotsConstants {
 	
 	public static final String TEAM_ID_STRING = "4571";
 	public static final int TEAM_ID = 4571;
+	// Why this is set to 360 and formula for DPP
+	// https://www.chiefdelphi.com/forums/showpost.php?p=1525618&postcount=4
+	public static final double ENCODER_PULSES_PER_REVOLUTION = 360;
+	public static final double ENCODER_GEAR_RATIO = 0;
+	public static final double GEAR_RATIO = 10.1;
+	public static final double WHEEL_RADIUS_IN_INCHES = 6;
+	public static final double ENCODER_FUDGE_FACTOR = 1;
+	public static final double ENCODER_DISTANCE_PER_PULSE = ( ( 2* Math.PI * RambotsConstants.WHEEL_RADIUS_IN_INCHES ) / RambotsConstants.ENCODER_PULSES_PER_REVOLUTION / RambotsConstants.ENCODER_GEAR_RATIO / RambotsConstants.GEAR_RATIO * RambotsConstants.ENCODER_FUDGE_FACTOR );
 
 }

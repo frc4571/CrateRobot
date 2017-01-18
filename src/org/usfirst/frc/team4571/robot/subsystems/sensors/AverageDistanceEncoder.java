@@ -34,4 +34,37 @@ public class AverageDistanceEncoder implements PIDSource {
 	public double pidGet() {
 		return ( ( leftEncoder.pidGet() + rightEncoder.pidGet() ) / 2.0 );
 	}
+	
+	public double getDistance(){
+		return ( ( leftEncoder.pidGet() + rightEncoder.pidGet() ) / 2.0 );
+	}
+	
+	public double getLeftRaw(){
+		return leftEncoder.getRaw();
+	}
+	
+	public double getRightRaw(){
+		return rightEncoder.getRaw();
+	}
+	
+	public double getLeftRate(){
+		return leftEncoder.getRate();
+	}
+	
+	public double getRightRate(){
+		return rightEncoder.getRate();
+	}
+	
+	public void reset(){
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+	
+	public void resetLeft(){
+		leftEncoder.reset();
+	}
+	
+	public void resetRight(){
+		rightEncoder.reset();
+	}
 }

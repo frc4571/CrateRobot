@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SPI;
@@ -28,23 +29,15 @@ public class DrivePIDSubsystem extends Subsystem{
 	/**
 	 * Actuators
 	 */
-	private static final SpeedController FRONT_LEFT_SPEED_CONTROLLER  = new CANTalon(RambotsConstants.FRONT_LEFT_TALON_CHANNEL);
-	private static final SpeedController FRONT_RIGHT_SPEED_CONTROLLER = new CANTalon(RambotsConstants.FRONT_RIGHT_TALON_CHANNEL);
-	private static final SpeedController REAR_LEFT_SPEED_CONTROLLER   = new CANTalon(RambotsConstants.REAR_LEFT_TALON_CHANNEL);
-	private static final SpeedController REAR_RIGHT_SPEED_CONTROLLER  = new CANTalon(RambotsConstants.REAR_RIGHT_TALON_CHANNEL);
+	private final SpeedController frontLeftSpeedController  = new CANTalon(RambotsConstants.FRONT_LEFT_TALON_CHANNEL);
+	private final SpeedController frontRightSpeedController = new CANTalon(RambotsConstants.FRONT_RIGHT_TALON_CHANNEL);
+	private final SpeedController rearLeftSpeedController   = new CANTalon(RambotsConstants.REAR_LEFT_TALON_CHANNEL);
+	private final SpeedController rearRightSpeedController  = new CANTalon(RambotsConstants.REAR_RIGHT_TALON_CHANNEL);
 	
 	/**
 	 * Sensors
 	 */
 	//Encoders
-	private static final Encoder DRIVE_TRAIN_LEFT_ENCODER = new Encoder( RambotsConstants.LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
-																		 RambotsConstants.LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
-																		 true,
-																		 EncodingType.k4X );
-	private static final Encoder DRIVE_TRAIN_RIGHT_ENCODER = new Encoder( RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
-																		 RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
-																		 true,
-																		 EncodingType.k4X );
 	private double encoderKp;
 	private double encoderKi;
 	private double encoderKd;
@@ -74,7 +67,7 @@ public class DrivePIDSubsystem extends Subsystem{
 	
 	public DrivePIDSubsystem(){
 		// Robot Drive
-		this.robotDrive = new RobotDrive(FRONT_LEFT_SPEED_CONTROLLER, REAR_LEFT_SPEED_CONTROLLER, FRONT_RIGHT_SPEED_CONTROLLER, REAR_RIGHT_SPEED_CONTROLLER);
+		this.robotDrive = new RobotDrive(frontLeftSpeedController, rearLeftSpeedController, frontRightSpeedController, rearRightSpeedController);
 		
 		//Invert right side
 		this.robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
@@ -85,8 +78,29 @@ public class DrivePIDSubsystem extends Subsystem{
 		this.robotDrive.setSensitivity(0.75);
 		this.robotDrive.setMaxOutput(0.95);
 		
+		// Set up Encoders
+		Encoder driveTrainLeftEncoder = new Encoder( RambotsConstants.LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
+													 RambotsConstants.LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
+													 true,
+													 EncodingType.k4X );
+		driveTrainLeftEncoder.setDistancePerPulse( RambotsConstants.ENCODER_DISTANCE_PER_PULSE );
+		driveTrainLeftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveTrainLeftEncoder.setSamplesToAverage(10);
+		driveTrainLeftEncoder.setMaxPeriod(0.1);
+		driveTrainLeftEncoder.setMinRate(10);
+		Encoder driveTrainRightEncoder = new Encoder( RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
+														 RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
+														 true,
+														 EncodingType.k4X );
+		driveTrainRightEncoder.setDistancePerPulse( RambotsConstants.ENCODER_DISTANCE_PER_PULSE );
+		driveTrainRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveTrainRightEncoder.setSamplesToAverage(10);
+		driveTrainRightEncoder.setMaxPeriod(0.1);
+		driveTrainRightEncoder.setMinRate(10);
+		
+		this.averageDistanceEncoder = new AverageDistanceEncoder(driveTrainLeftEncoder, driveTrainRightEncoder);
+
 		// Set up PID Controllers
-		this.averageDistanceEncoder = new AverageDistanceEncoder(DRIVE_TRAIN_LEFT_ENCODER, DRIVE_TRAIN_RIGHT_ENCODER);
 		this.distancePIDOutput = new RetrievePIDOutput();
 		this.distanceController = new PIDController(encoderKp, encoderKi, encoderKd, averageDistanceEncoder, distancePIDOutput, encoderPeriod);
 		this.distanceController.setPercentTolerance(5.0);
@@ -98,19 +112,17 @@ public class DrivePIDSubsystem extends Subsystem{
         this.turnController.setOutputRange(-1.0, 1.0);
         this.turnController.setAbsoluteTolerance(kToleranceDegrees);
 		this.turnController.setContinuous(true);
-		this.turnController.enable();
 		
 		// Smart Dashboard for PID tuning
 		LiveWindow.addActuator("DriveSystem", "RotateController", turnController);
 	}
 	
 	public void initializeSubsystem(){	
-		FRONT_LEFT_SPEED_CONTROLLER.set(0.0);
-		FRONT_RIGHT_SPEED_CONTROLLER.set(0.0);
-		REAR_LEFT_SPEED_CONTROLLER.set(0.0);
-		REAR_RIGHT_SPEED_CONTROLLER.set(0.0);
-		DRIVE_TRAIN_LEFT_ENCODER.reset();
-		DRIVE_TRAIN_RIGHT_ENCODER.reset();
+		frontLeftSpeedController.set(0.0);
+		frontRightSpeedController.set(0.0);
+		rearLeftSpeedController.set(0.0);
+		rearRightSpeedController.set(0.0);
+		averageDistanceEncoder.reset();
 		NAV_X.reset();
 	}
 	
@@ -143,12 +155,29 @@ public class DrivePIDSubsystem extends Subsystem{
 	//-------------------------------------- PID Control methods ---------------------------------//
 	
 	public void setDriveStraightParameters( double distanceSetPoint, double angleToMaintain ){
+		averageDistanceEncoder.reset();
+		turnController.reset();
+		distanceController.setInputRange(0, distanceSetPoint);
+		distanceController.setOutputRange(-1, 1);
 		distanceController.setSetpoint(distanceSetPoint);
 		turnController.setSetpoint(angleToMaintain);
+		distanceController.enable();
+		turnController.enable();
+	}
+	
+	/**
+	 * Distance you want to traverse
+	 * @param distanceSetPoint
+	 */
+	public void drive( double distanceInInches ){
+		setDriveStraightParameters( distanceInInches, 0 );
+		while( distanceController.onTarget() ){
+			this.robotDrive.arcadeDrive( distanceController.get(), 0 );
+		}
 	}
 	
 	public boolean isStraightDriveFinished() {
-		return distanceController.onTarget();
+		return distanceController.onTarget() && turnController.onTarget();
 	}
 	
 	public void drive(){
@@ -162,4 +191,5 @@ public class DrivePIDSubsystem extends Subsystem{
 	public PIDController getDistanceController(){
 		return this.distanceController;
 	}
+
 }
