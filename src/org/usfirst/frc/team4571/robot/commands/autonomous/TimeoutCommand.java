@@ -1,12 +1,13 @@
 package org.usfirst.frc.team4571.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
  * @author arjunrao87
  *
  */
-public class TimeoutCommand extends AbstractAutonomousCommand{
+public class TimeoutCommand extends Command{
 
     private double timeout;
 
@@ -27,4 +28,8 @@ public class TimeoutCommand extends AbstractAutonomousCommand{
 
 	@Override
 	protected void end() {}
+
+	@Override
+	protected void interrupted() {		
+	}
 }
