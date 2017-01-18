@@ -7,6 +7,9 @@ jdk:
 
 sudo: false # faster builds
 
+notifications:
+  email: false
+  
 ################################### GRADLE SETUP ######################################
 
 env:
@@ -52,4 +55,4 @@ deploy:
   skip_cleanup: true
   file: "$TRAVIS_BUILD_DIR/$RELEASE_PKG_FILE"
   on:
-    tags: true
+    tags: true    

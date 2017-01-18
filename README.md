@@ -3,7 +3,36 @@
 
 ## 2.0 version of the code for the FRC 4571 robot that went to the World Championships
 
-To set up this module in your development environment, follow these steps:
+### About the Robot
+
+#### Tasks
+
+1. Drive around using mecanum wheel system [ Drive subsystem ]
+2. Get a hold of a crate about 3 feet x 2 feet [ Arm subsystem ]
+3. Pick up the crate and place it on an overhead shelf [ Elevator subsystem ]
+
+#### Hardware
+
+1. Drive subsystem
+	* Mecanum wheels
+	* 4 Talon SRX speed controllers
+
+2. Arm subsystem
+	* Steel arms that open and close
+	* Solenoid to control the arm movement
+	
+3. Sweep subsystem
+	* 
+	* Solenoid to control the sweeping movement
+
+4. Elevator subsystem
+	* Steel lift/elevator system that are controlled by pneumatics
+	* Limit switch to control extent of motion of the elevator
+
+#### Software
+
+
+### Setting up development environment
 
 1. Clone the repository
 2. Run `gradlew eclipse` for Eclipse, or `gradlew idea` for IntelliJ (Linux/Mac users should use `./gradlew` instead of `gradlew`.)

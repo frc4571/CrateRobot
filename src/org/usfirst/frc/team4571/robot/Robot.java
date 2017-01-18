@@ -1,42 +1,101 @@
 package org.usfirst.frc.team4571.robot;
 
+import jaci.openrio.toast.lib.module.IterativeModule;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
+import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
+import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DrivePIDSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
+import org.usfirst.frc.team4571.robot.web.RobotWebServer;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import jaci.openrio.toast.lib.module.IterativeModule;
-import org.usfirst.frc.team4571.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4571.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * 
+ * @author arjunrao87
  *
- * The class has been modified to extend the IterativeModule, which is
- * Toast's equivalent of IterativeRobot
  */
 public class Robot extends IterativeModule {
+	
+	/**
+	 * Tells what the current mode of the robot is
+	 * 
+	 * @author arjunrao
+	 *
+	 */
+	public enum RobotMode {
+		
+		AUTONOMOUS,
+		TELEOP,
+		DISABLED
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OperatorInterface oi;
+	}
+	
+	//======================= SUBSYSTEM MANAGEMENT ===================//
 
-    Command autonomousCommand;
-    SendableChooser chooser;
+	// Subsystems
+	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM  = new ElevatorSubsystem();
+	public static final DriveSubsystem DRIVE_SUBSYSTEM        = new DriveSubsystem();
+	public static final DrivePIDSubsystem DRIVE_PID_SUBSYSTEM = new DrivePIDSubsystem();
+	public static final ArmSubsystem ARM_SUBSYSTEM            = new ArmSubsystem();
+	public static final SweepSubsystem SWEEP_SUBSYSTEM        = new SweepSubsystem();
+	
+	//========================== COMPONENT MANAGEMENT ================//
+	
+	// Joystick
+	public static final RambotsJoystick JOYSTICK_LEFT  = new RambotsJoystick(RambotsConstants.LEFT_JOYSTICK_CHANNEL);
+	public static final RambotsJoystick JOYSTICK_RIGHT = new RambotsJoystick(RambotsConstants.RIGHT_JOYSTICK_CHANNEL);
+	// Web server
+	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
+	
+	// Network Tables
+	public static final NetworkTable NETWORK_TABLE = NetworkTable.getTable( RambotsConstants.TEAM_ID_STRING );
+	
+	// State management
+	public static final StateManager STATE_MANAGER = new StateManager();
+	
+	//============================= COMMAND MANAGEMENT ================//
+	
+	// TeleOp commands
+	public static final Command SIMPLE_TELEOP_ELEVATOR_UP = new SimpleTeleopElevatorUpCommand();
+	public static final Command TELEOP_ELEVATOR_STOP = new TeleopElevatorStopCommand();
+	public static final Command SIMPLE_TELEOP_ELEVATOR_DOWN = new SimpleTeleopElevatorDownCommand();
+	public static final Command TELEOP_SWEEP = new TeleopSweepCommand();
+	public static final Command TELEOP_ARM = new TeleopArmCommand();
+	
+	// Autonomous commands
+	
+	//===================== Robot instance variables ===================//
+	
+	private static final Logger logger = LoggerFactory.getLogger(Robot.class);
+	private RobotMode robotMode;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	@Override
     public void robotInit() {
-		oi = new OperatorInterface();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+		logger.info( "Starting up robot!" );
+    	JOYSTICK_LEFT.buttonAWhenPressed(TELEOP_ARM)
+    			.buttonBWhenPressed(TELEOP_SWEEP)
+    			.buttonXWhenPressed(SIMPLE_TELEOP_ELEVATOR_UP)
+    			.buttonXWhenReleased(TELEOP_ELEVATOR_STOP)
+    			.buttonYWhenPressed(SIMPLE_TELEOP_ELEVATOR_DOWN)
+    			.buttonYWhenReleased(TELEOP_ELEVATOR_STOP);
+    	WEB_SERVER.start(4571);
     }
 	
 	/**
@@ -44,10 +103,18 @@ public class Robot extends IterativeModule {
      * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
+    @Override
     public void disabledInit(){
-
+    	this.robotMode = RobotMode.DISABLED;
+    	logger.info( "Robot mode initialized - " + robotMode );
+    	
+    	ARM_SUBSYSTEM.resetArmSolenoid();
+    	SWEEP_SUBSYSTEM.resetSweeperSolenoid();
+    	DRIVE_SUBSYSTEM.reset();
+    	ELEVATOR_SUBSYSTEM.stop();
     }
 	
+    @Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -57,58 +124,49 @@ public class Robot extends IterativeModule {
 	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
 	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
 	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings and commands.
 	 */
+    @Override
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
-    	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+    	this.robotMode = RobotMode.AUTONOMOUS;
     }
 
     /**
      * This function is called periodically during autonomous
      */
+    @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
 
+    @Override
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+    	this.robotMode = RobotMode.TELEOP;
+    	logger.info( "Robot mode initialized - " + robotMode );
+    	
+    	SIMPLE_TELEOP_ELEVATOR_UP.start();
+    	SIMPLE_TELEOP_ELEVATOR_DOWN.start();
+    	TELEOP_ELEVATOR_STOP.start();
+    	TELEOP_ARM.start();
+    	TELEOP_SWEEP.start();
+    	System.err.println( "teleopInit");
     }
 
     /**
      * This function is called periodically during operator control
      */
+    @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    	logger.info( "Running " + robotMode + " periodically." );
     }
     
     /**
      * This function is called periodically during test mode
      */
+    @Override
     public void testPeriodic() {
         LiveWindow.run();
     }
-
-    // IterativeModule's methods to implement
 
     @Override
     public String getModuleName() {
@@ -118,5 +176,9 @@ public class Robot extends IterativeModule {
     @Override
     public String getModuleVersion() {
         return "1.0.0";
+    }
+    
+    public RobotMode getRobotMode(){
+    	return this.robotMode;
     }
 }
