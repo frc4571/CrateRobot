@@ -167,11 +167,12 @@ public class DrivePIDSubsystem extends Subsystem{
 	
 	/**
 	 * Distance you want to traverse
+	 * 
 	 * @param distanceSetPoint
 	 */
 	public void drive( double distanceInInches ){
 		setDriveStraightParameters( distanceInInches, 0 );
-		while( distanceController.onTarget() ){
+		while( isStraightDriveFinished() ){
 			this.robotDrive.arcadeDrive( distanceController.get(), 0 );
 		}
 	}
@@ -191,5 +192,4 @@ public class DrivePIDSubsystem extends Subsystem{
 	public PIDController getDistanceController(){
 		return this.distanceController;
 	}
-
 }
