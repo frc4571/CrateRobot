@@ -4,12 +4,14 @@ import jaci.openrio.toast.lib.module.IterativeModule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.usfirst.frc.team4571.robot.commands.autonomous.DriveCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
 import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DrivePIDSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
@@ -47,6 +49,7 @@ public class Robot extends IterativeModule {
 	// Subsystems
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM  = new ElevatorSubsystem();
 	public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem();
+	public static final DrivePIDSubsystem DRIVE_PID_SUBSYSTEM = new DrivePIDSubsystem(5,0,0);
 	public static final ArmSubsystem ARM_SUBSYSTEM            = new ArmSubsystem();
 	public static final SweepSubsystem SWEEP_SUBSYSTEM        = new SweepSubsystem();
 	
@@ -133,6 +136,7 @@ public class Robot extends IterativeModule {
     @Override
     public void autonomousInit() {
     	this.robotMode = RobotMode.AUTONOMOUS;
+    	Scheduler.getInstance().add( new DriveCommand( 12, 0 ) );
     }
 
     /**

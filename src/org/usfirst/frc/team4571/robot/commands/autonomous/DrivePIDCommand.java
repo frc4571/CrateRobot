@@ -9,24 +9,22 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author arjunrao
  *
  */
-public class DriveStraightCommand extends Command {
+public class DrivePIDCommand extends Command {
 
-	public DriveStraightCommand( double distance ){
-		requires( Robot.DRIVE_SUBSYSTEM );
-		Robot.DRIVE_SUBSYSTEM.setDriveParameters( distance, 0 );
+	public DrivePIDCommand( double distance, double angle ){
+		requires( Robot.DRIVE_PID_SUBSYSTEM );
+		Robot.DRIVE_PID_SUBSYSTEM.setDriveParameters( distance, angle );
 	}
 	
 	@Override
-	protected void initialize() {
-		Robot.DRIVE_SUBSYSTEM.initializeSubsystem();
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.DRIVE_SUBSYSTEM.isStraightDriveFinished();
+		return Robot.DRIVE_PID_SUBSYSTEM.isFinished();
 	}
 
 	@Override

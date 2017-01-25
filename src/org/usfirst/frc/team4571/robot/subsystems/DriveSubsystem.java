@@ -182,7 +182,7 @@ public class DriveSubsystem extends Subsystem{
 		turnController.enable();
 	}
 
-	public boolean isStraightDriveFinished() {
+	public boolean isFinished() {
 		return distanceController.onTarget() && turnController.onTarget();
 	}
 
