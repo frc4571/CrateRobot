@@ -10,7 +10,7 @@ import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopElevatorStopCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopSweepCommand;
 import org.usfirst.frc.team4571.robot.subsystems.ArmSubsystem;
-import org.usfirst.frc.team4571.robot.subsystems.DrivePIDSubsystem;
+import org.usfirst.frc.team4571.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
@@ -46,7 +46,7 @@ public class Robot extends IterativeModule {
 
 	// Subsystems
 	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM  = new ElevatorSubsystem();
-	public static final DrivePIDSubsystem DRIVE_PID_SUBSYSTEM = new DrivePIDSubsystem();
+	public static final DriveSubsystem DRIVE_SUBSYSTEM = new DriveSubsystem();
 	public static final ArmSubsystem ARM_SUBSYSTEM            = new ArmSubsystem();
 	public static final SweepSubsystem SWEEP_SUBSYSTEM        = new SweepSubsystem();
 	
@@ -87,12 +87,19 @@ public class Robot extends IterativeModule {
 	@Override
     public void robotInit() {
 		logger.info( "Starting up robot!" );
+		
+		DRIVE_SUBSYSTEM.initializeSubsystem();
+		ELEVATOR_SUBSYSTEM.initializeSubsytem();
+		ARM_SUBSYSTEM.initializeSubsystem();
+		SWEEP_SUBSYSTEM.initializeSubsystem();
+		
     	JOYSTICK_LEFT.buttonAWhenPressed(TELEOP_ARM)
     			.buttonBWhenPressed(TELEOP_SWEEP)
     			.buttonXWhenPressed(SIMPLE_TELEOP_ELEVATOR_UP)
     			.buttonXWhenReleased(TELEOP_ELEVATOR_STOP)
     			.buttonYWhenPressed(SIMPLE_TELEOP_ELEVATOR_DOWN)
     			.buttonYWhenReleased(TELEOP_ELEVATOR_STOP);
+    	
     	WEB_SERVER.start(4571);
     }
 	
@@ -108,7 +115,7 @@ public class Robot extends IterativeModule {
     	
     	ARM_SUBSYSTEM.resetArmSolenoid();
     	SWEEP_SUBSYSTEM.resetSweeperSolenoid();
-    	DRIVE_PID_SUBSYSTEM.reset();
+    	DRIVE_SUBSYSTEM.reset();
     	ELEVATOR_SUBSYSTEM.stop();
     }
 	

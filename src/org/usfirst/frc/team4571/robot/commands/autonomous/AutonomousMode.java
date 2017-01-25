@@ -12,5 +12,5 @@ public enum AutonomousMode {
 	AUTO_1,
 	AUTO_2,
 	AUTO_3
-	
+
 }

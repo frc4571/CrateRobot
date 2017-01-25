@@ -13,18 +13,18 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * 
  * @author arjunrao87
  *
  */
-public class DrivePIDSubsystem extends Subsystem{
+public class DriveSubsystem extends Subsystem{
 
 	/**
 	 * Actuators
@@ -38,15 +38,15 @@ public class DrivePIDSubsystem extends Subsystem{
 	 * Sensors
 	 */
 	//Encoders
-	private double encoderKp;
-	private double encoderKi;
-	private double encoderKd;
+	private double encoderKp = 1.0;
+	private double encoderKi = 0.0;
+	private double encoderKd = 0.0;
 	
 	// NavX
-	private static final AHRS NAV_X = new AHRS(SPI.Port.kMXP);	
-	private double navKp;
-	private double navKi;
-	private double navKd;
+	private static final AHRS NAV_X = new AHRS(SPI.Port.kMXP);
+	private double navKp = 1.0;
+	private double navKi = 0.0;
+	private double navKd = 0.0;
 	private final double kToleranceDegrees = 2.0f;
 	
 	// PIDSource, PIDOutput
@@ -61,13 +61,17 @@ public class DrivePIDSubsystem extends Subsystem{
 	 */
 	private RobotDrive robotDrive;
 	
-	public DrivePIDSubsystem(){
+	// SmartDashboard parameters
+	private static final String DISTANCE_TRAVELED 				= "DriveSubsystem : Average Encoder Distance Reading : ";
+	private static final String TURN_CONTROLLER_READING 		= "DriveSubsystem : Turn Controller Reading : ";
+	protected static final String LEFT_TANK_DRIVE_MOTOR_SPEED 	= "DriveSubsystem : Left Tank Drive Motor Speed : ";
+	protected static final String RIGHT_TANK_DRIVE_MOTOR_SPEED 	= "DriveSubsystem : Right Tank Drive Motor Speed : ";	
+	protected static final String TURN_CONTROLLER_PID_WRITE   	= "TurnController PIDWrite";
+	protected static final String DISTANCE_CONTROLLER_PID_WRITE = "DistanceController PIDWrite";
+	
+	public DriveSubsystem(){
 		// Robot Drive
 		this.robotDrive = new RobotDrive(frontLeftSpeedController, rearLeftSpeedController, frontRightSpeedController, rearRightSpeedController);
-		
-		//Invert right side
-		this.robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		this.robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		
 		//Set safety
 		this.robotDrive.setSafetyEnabled(true);
@@ -84,10 +88,11 @@ public class DrivePIDSubsystem extends Subsystem{
 		driveTrainLeftEncoder.setSamplesToAverage(10);
 		driveTrainLeftEncoder.setMaxPeriod(0.1);
 		driveTrainLeftEncoder.setMinRate(10);
+		
 		Encoder driveTrainRightEncoder = new Encoder( RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
-														 RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
-														 true,
-														 EncodingType.k4X );
+													  RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
+													  true,
+													  EncodingType.k4X );
 		driveTrainRightEncoder.setDistancePerPulse( RambotsConstants.ENCODER_DISTANCE_PER_PULSE );
 		driveTrainRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		driveTrainRightEncoder.setSamplesToAverage(10);
@@ -101,30 +106,33 @@ public class DrivePIDSubsystem extends Subsystem{
 			
 			@Override
 			public void pidWrite(double output) {
-				frontLeftSpeedController.set(output);
-				rearLeftSpeedController.set(output);
-				frontRightSpeedController.set(output);
-				rearRightSpeedController.set(output);
+				double turnOutput = turnController.get();
+				robotDrive.tankDrive( output + turnOutput, output - turnOutput );
+				SmartDashboard.putNumber( TURN_CONTROLLER_READING 	   + DISTANCE_CONTROLLER_PID_WRITE, turnOutput );
+				SmartDashboard.putNumber( LEFT_TANK_DRIVE_MOTOR_SPEED  + DISTANCE_CONTROLLER_PID_WRITE, output + turnOutput );
+				SmartDashboard.putNumber( RIGHT_TANK_DRIVE_MOTOR_SPEED + DISTANCE_CONTROLLER_PID_WRITE, output - turnOutput  );
+				SmartDashboard.putNumber( DISTANCE_TRAVELED, averageDistanceEncoder.getDistance() );
 			}
 		});
-		this.distanceController.setPercentTolerance(5.0);
-		this.distanceController.setContinuous(false);
 		
 		this.turnController = new PIDController( navKp, navKi, navKd, NAV_X, new PIDOutput(){
 
 			@Override
 			public void pidWrite(double output) {
-				// TODO Auto-generated method stub
+				SmartDashboard.putNumber( TURN_CONTROLLER_READING + TURN_CONTROLLER_PID_WRITE, output );
 			}
 		});
-		this.turnController.setInputRange(-180.0f, 180.0f);
-        this.turnController.setOutputRange(-1.0, 1.0);
-        this.turnController.setAbsoluteTolerance(kToleranceDegrees);
-		this.turnController.setContinuous(true);
-		
+
 		// Smart Dashboard for PID tuning
 		LiveWindow.addActuator("DriveSystem", "DistanceController", distanceController);
-		LiveWindow.addActuator("DriveSystem", "TurnController", turnController);
+		LiveWindow.addActuator("DriveSystem", "TurnController"    , turnController);
+	}
+
+	//------------------------------------------ Required definitions ------------------------------------//
+	
+	@Override
+	protected void initDefaultCommand() {
+		// No default command
 	}
 	
 	public void initializeSubsystem(){	
@@ -136,72 +144,48 @@ public class DrivePIDSubsystem extends Subsystem{
 		NAV_X.reset();
 	}
 	
-	//------------------------------------------ Required definitions ------------------------------------//
-	
-	//TODO
-	@Override
-	protected void initDefaultCommand() {
-		// No default command
-	}
-	
-	//-------------------------------------- Drive Subsystem specific methods ---------------------------------//
-	
-	// Tank drive method
-	public void drive( GenericHID left, GenericHID right ){
-		this.robotDrive.tankDrive( left, right );
-	}
-	
-	// TODO : Not really sure how this will work with the tank drive
-	public void drive( double speed, double turn ){
-		this.robotDrive.drive( speed, turn );
-	}
-	
-	// Stop the drive system
 	public void reset(){
 		this.robotDrive.stopMotor();
 		this.robotDrive.free();
 	}
 
+	//-------------------------------------- Drive methods ---------------------------------//
+	
+	public void drive( GenericHID left, GenericHID right ){
+		this.robotDrive.tankDrive( left, right );
+	}
+
 	//-------------------------------------- PID Control methods ---------------------------------//
 	
-	public void setDriveStraightParameters( double distanceSetPoint, double angleToMaintain ){
+	public void setDriveParameters( double distanceSetPoint, double angleToMaintain ){
+		// Step 1 : Reset Sensors
 		averageDistanceEncoder.reset();
+		distanceController.reset();
 		turnController.reset();
+		
+		// Step 2 : Initialize distance controller
 		distanceController.setInputRange(0, distanceSetPoint);
 		distanceController.setOutputRange(-1, 1);
 		distanceController.setSetpoint(distanceSetPoint);
+		distanceController.setPercentTolerance(5.0);
+		distanceController.setContinuous(false);
+		
+		// Step 3 : Initialize turn controller
 		turnController.setSetpoint(angleToMaintain);
+		turnController.setInputRange(-180.0f, 180.0f);
+        turnController.setOutputRange(-1.0, 1.0);
+        turnController.setAbsoluteTolerance(kToleranceDegrees);
+		turnController.setContinuous(true);
+		
+		// Step 4 : Enable PID Controllers
 		distanceController.enable();
 		turnController.enable();
-	}
-	
-	/**
-	 * Distance you want to traverse
-	 * 
-	 * @param distanceInInches
-	 */
-	public void drive( double distanceInInches ){
-		setDriveStraightParameters( distanceInInches, 0 );
-		while( isStraightDriveFinished() ){
-			this.robotDrive.arcadeDrive( distanceController.get(), 0 );
-		}
-		this.resetPID();
-	}
-	
-	private void resetPID() {
-		this.distanceController.disable();
-		this.turnController.disable();
-		this.averageDistanceEncoder.reset();
 	}
 
 	public boolean isStraightDriveFinished() {
 		return distanceController.onTarget() && turnController.onTarget();
 	}
-	
-	public void drive(){
-		this.robotDrive.arcadeDrive( distanceController.get(), turnController.get() );
-	}
-	
+
 	public PIDController getTurnController(){
 		return this.turnController;
 	}

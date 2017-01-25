@@ -13,12 +13,12 @@ import org.usfirst.frc.team4571.robot.Robot;
 public class TeleopDriveCommand extends AbstractTeleopCommand{
 
 	public TeleopDriveCommand(){
-		requires( Robot.DRIVE_PID_SUBSYSTEM );
+		requires( Robot.DRIVE_SUBSYSTEM );
 	}
 	
 	@Override
 	protected void initialize() {
-		Robot.DRIVE_PID_SUBSYSTEM.initializeSubsystem();
+		Robot.DRIVE_SUBSYSTEM.initializeSubsystem();
 	}
 
 	@Override
@@ -27,16 +27,14 @@ public class TeleopDriveCommand extends AbstractTeleopCommand{
 	}
 	 
 	public void drive(){
-		Robot.DRIVE_PID_SUBSYSTEM.drive( Robot.JOYSTICK_LEFT, Robot.JOYSTICK_RIGHT );
+		Robot.DRIVE_SUBSYSTEM.drive( Robot.JOYSTICK_LEFT, Robot.JOYSTICK_RIGHT );
 	}
 
 	@Override
-	protected void end() {
-		Robot.DRIVE_PID_SUBSYSTEM.drive( 0, 0 );
-	}
+	protected void end() {}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.DRIVE_PID_SUBSYSTEM.getDistanceController().onTarget();
+		return Robot.DRIVE_SUBSYSTEM.getDistanceController().onTarget();
 	}
 }
