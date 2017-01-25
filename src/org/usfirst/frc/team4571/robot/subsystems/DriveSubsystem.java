@@ -91,7 +91,7 @@ public class DriveSubsystem extends Subsystem{
 		
 		Encoder driveTrainRightEncoder = new Encoder( RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_A,
 													  RambotsConstants.RIGHT_DRIVE_TRAIN_ENCODER_CHANNEL_B,
-													  true,
+													  false,
 													  EncodingType.k4X );
 		driveTrainRightEncoder.setDistancePerPulse( RambotsConstants.ENCODER_DISTANCE_PER_PULSE );
 		driveTrainRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
