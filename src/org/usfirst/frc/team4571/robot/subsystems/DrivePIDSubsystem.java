@@ -109,6 +109,7 @@ public class DrivePIDSubsystem extends PIDSubsystem {
 		return NAV_X.getAngle();
 	}
 
+	//https://www.chiefdelphi.com/forums/showthread.php?t=114061
 	@Override
 	protected void usePIDOutput(double output) {
 		tankDrive( speed + output, speed - output );
