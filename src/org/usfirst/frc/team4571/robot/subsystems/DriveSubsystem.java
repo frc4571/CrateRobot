@@ -164,7 +164,10 @@ public class DriveSubsystem extends Subsystem{
 		turnController.reset();
 		
 		// Step 2 : Initialize distance controller
-		distanceController.setInputRange(0, distanceSetPoint);
+		if( distanceSetPoint >= 0 )
+			distanceController.setInputRange(0, distanceSetPoint);
+		else
+			distanceController.setInputRange(distanceSetPoint, 0);
 		distanceController.setOutputRange(-1, 1);
 		distanceController.setSetpoint(distanceSetPoint);
 		distanceController.setPercentTolerance(5.0);

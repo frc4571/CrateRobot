@@ -4,7 +4,8 @@ import jaci.openrio.toast.lib.module.IterativeModule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usfirst.frc.team4571.robot.commands.autonomous.DriveCommand;
+import org.usfirst.frc.team4571.robot.commands.autonomous.group.BackAndForthCommand;
+import org.usfirst.frc.team4571.robot.commands.autonomous.mode.AutonomousModePicker;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorDownCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.SimpleTeleopElevatorUpCommand;
 import org.usfirst.frc.team4571.robot.commands.teleop.TeleopArmCommand;
@@ -19,9 +20,11 @@ import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
 import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * 
@@ -77,6 +80,8 @@ public class Robot extends IterativeModule {
 	public static final Command TELEOP_ARM = new TeleopArmCommand();
 	
 	// Autonomous commands
+	private AutonomousModePicker autoPicker;
+	private CommandGroup currentAutoMode;
 	
 	//===================== Robot instance variables ===================//
 	
@@ -104,6 +109,9 @@ public class Robot extends IterativeModule {
     			.buttonYWhenReleased(TELEOP_ELEVATOR_STOP);
     	
     	WEB_SERVER.start(4571);
+    	
+    	autoPicker = new AutonomousModePicker();
+    	autoPicker.addAutoCommand( "Back And Forth", new BackAndForthCommand() );
     }
 	
 	/**
@@ -135,8 +143,18 @@ public class Robot extends IterativeModule {
 	 */
     @Override
     public void autonomousInit() {
-    	this.robotMode = RobotMode.AUTONOMOUS;
-    	Scheduler.getInstance().add( new DriveCommand( 12, 0 ) );
+    	this.robotMode  = RobotMode.AUTONOMOUS;
+    	if( currentAutoMode != null ){
+    		currentAutoMode.cancel();
+    		currentAutoMode = null;
+    	}
+    	String autoMode = SmartDashboard.getString("automode");
+    	if( autoMode == null ){
+    		autoMode = "Back And Forth";
+    	}
+    	currentAutoMode = this.autoPicker.getModes().get(autoMode);
+    	if( currentAutoMode != null )
+    		currentAutoMode.start();
     }
 
     /**
@@ -157,7 +175,6 @@ public class Robot extends IterativeModule {
     	TELEOP_ELEVATOR_STOP.start();
     	TELEOP_ARM.start();
     	TELEOP_SWEEP.start();
-    	System.err.println( "teleopInit");
     }
 
     /**

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4571.robot.commands.autonomous;
+package org.usfirst.frc.team4571.robot.commands.autonomous.mode;
 
 /**
  * Different modes of autonomous available.
