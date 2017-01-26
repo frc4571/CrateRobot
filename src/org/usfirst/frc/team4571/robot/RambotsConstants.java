@@ -13,10 +13,10 @@ public final class RambotsConstants {
 	
 	// SRX Speed Controller Channel Mapping
 
-	public static int REAR_RIGHT_TALON_CHANNEL  = 0;
-	public static int FRONT_RIGHT_TALON_CHANNEL = 1;
-	public static int FRONT_LEFT_TALON_CHANNEL  = 2;
+	public static int FRONT_LEFT_TALON_CHANNEL  = 1;
+	public static int FRONT_RIGHT_TALON_CHANNEL = 2;
 	public static int REAR_LEFT_TALON_CHANNEL   = 3;
+	public static int REAR_RIGHT_TALON_CHANNEL  = 4;
 	
 	// Joystick Channel Mapping
 	
