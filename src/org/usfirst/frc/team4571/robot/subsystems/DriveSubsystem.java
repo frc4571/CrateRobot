@@ -76,7 +76,7 @@ public class DriveSubsystem extends Subsystem{
 		//Set safety
 		this.robotDrive.setSafetyEnabled(true);
 		this.robotDrive.setSensitivity(0.75);
-		this.robotDrive.setMaxOutput(0.95);
+		this.robotDrive.setMaxOutput(1);
 		
 		// Set up Encoders
 		Encoder driveTrainLeftEncoder = new Encoder( RambotsConstants.LEFT_DRIVE_TRAIN_ENCODER_CHANNEL_A,

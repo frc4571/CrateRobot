@@ -121,4 +121,8 @@ public class DrivePIDSubsystem extends PIDSubsystem {
 	
 	@Override
 	protected void initDefaultCommand() {}
+	
+	public PIDController getDistanceController(){
+		return this.distanceController;
+	}
 }
