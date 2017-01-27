@@ -3,7 +3,8 @@ package org.usfirst.frc.team4571.robot.subsystems.components;
 import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.exception.InvalidRambotOperationException;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**

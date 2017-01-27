@@ -3,9 +3,10 @@ package org.usfirst.frc.team4571.robot.subsystems;
 import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.subsystems.sensors.AverageDistanceEncoder;
 
+import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -13,7 +14,6 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -77,7 +77,7 @@ public class DrivePIDSubsystem extends PIDSubsystem {
 		getPIDController().reset();
 		
 		// Step 2 : Initialize distance controller
-		distanceController.setInputRange(0, distanceSetPoint);
+		distanceController.setInputRange(-distanceSetPoint, distanceSetPoint);
 		distanceController.setOutputRange(-1, 1);
 		distanceController.setSetpoint(distanceSetPoint);
 		distanceController.setPercentTolerance(5.0);

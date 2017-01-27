@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4571.robot;
 
-import jaci.openrio.toast.lib.module.IterativeModule;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usfirst.frc.team4571.robot.commands.autonomous.group.BackAndForthCommand;
@@ -19,11 +17,11 @@ import org.usfirst.frc.team4571.robot.subsystems.SweepSubsystem;
 import org.usfirst.frc.team4571.robot.subsystems.state.StateManager;
 import org.usfirst.frc.team4571.robot.web.RobotWebServer;
 
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author arjunrao87
  *
  */
-public class Robot extends IterativeModule {
+public class Robot extends IterativeRobot {
 	
 	/**
 	 * Tells what the current mode of the robot is
@@ -40,11 +38,9 @@ public class Robot extends IterativeModule {
 	 *
 	 */
 	public enum RobotMode {
-		
 		AUTONOMOUS,
 		TELEOP,
 		DISABLED
-
 	}
 	
 	//======================= SUBSYSTEM MANAGEMENT ===================//
@@ -63,9 +59,6 @@ public class Robot extends IterativeModule {
 	public static final RambotsJoystick JOYSTICK_RIGHT = new RambotsJoystick(RambotsConstants.RIGHT_JOYSTICK_CHANNEL);
 	// Web server
 	public static final RobotWebServer WEB_SERVER = new RobotWebServer();
-	
-	// Network Tables
-	public static final NetworkTable NETWORK_TABLE = NetworkTable.getTable( RambotsConstants.TEAM_ID_STRING );
 	
 	// State management
 	public static final StateManager STATE_MANAGER = new StateManager();
@@ -141,7 +134,8 @@ public class Robot extends IterativeModule {
 	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
 	 * below the Gyro
 	 */
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void autonomousInit() {
     	this.robotMode  = RobotMode.AUTONOMOUS;
     	if( currentAutoMode != null ){
@@ -192,16 +186,6 @@ public class Robot extends IterativeModule {
     @Override
     public void testPeriodic() {
         LiveWindow.run();
-    }
-
-    @Override
-    public String getModuleName() {
-        return "CrateRobot";
-    }
-
-    @Override
-    public String getModuleVersion() {
-        return "1.0.0";
     }
     
     public RobotMode getRobotMode(){

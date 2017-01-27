@@ -3,9 +3,9 @@ package org.usfirst.frc.team4571.robot.subsystems;
 import org.usfirst.frc.team4571.robot.RambotsConstants;
 import org.usfirst.frc.team4571.robot.subsystems.sensors.AverageDistanceEncoder;
 
+import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -122,10 +122,6 @@ public class DriveSubsystem extends Subsystem{
 				SmartDashboard.putNumber( TURN_CONTROLLER_READING + TURN_CONTROLLER_PID_WRITE, output );
 			}
 		});
-
-		// Smart Dashboard for PID tuning
-		LiveWindow.addActuator("DriveSystem", "DistanceController", distanceController);
-		LiveWindow.addActuator("DriveSystem", "TurnController"    , turnController);
 	}
 
 	//------------------------------------------ Required definitions ------------------------------------//
@@ -142,6 +138,10 @@ public class DriveSubsystem extends Subsystem{
 		rearRightSpeedController.set(0.0);
 		averageDistanceEncoder.reset();
 		NAV_X.reset();
+		
+		// Smart Dashboard for PID tuning
+		LiveWindow.addActuator("DriveSystem", "DistanceController", distanceController);
+		LiveWindow.addActuator("DriveSystem", "TurnController"    , turnController);
 	}
 	
 	public void reset(){

@@ -21,6 +21,7 @@ public class DriveCommand extends Command {
 		Robot.DRIVE_SUBSYSTEM.initializeSubsystem();
 	}
 
+	// Does not need to be implemented since the PID controller is in charge of motion
 	@Override
 	protected void execute() {}
 

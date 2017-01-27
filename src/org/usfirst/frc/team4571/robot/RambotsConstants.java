@@ -66,7 +66,7 @@ public final class RambotsConstants {
 	// Why this is set to 360 and formula for DPP
 	// https://www.chiefdelphi.com/forums/showpost.php?p=1525618&postcount=4
 	public static final double ENCODER_PULSES_PER_REVOLUTION = 360;
-	public static final double ENCODER_GEAR_RATIO = 0;
+	public static final double ENCODER_GEAR_RATIO = 1;
 	public static final double GEAR_RATIO = 10.1;
 	public static final double WHEEL_RADIUS_IN_INCHES = 6;
 	public static final double ENCODER_FUDGE_FACTOR = 1;
